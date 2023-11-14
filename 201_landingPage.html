@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.x/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .stars {
+            width: 1px;
+            height: 1px;
+            background: transparent;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            animation: sparkle 1.5s infinite alternate;
+        }
+
+        @keyframes moveRandomly {
+            /* Define keyframes for random movement */
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-10px, 10px); }
+            50% { transform: translate(10px, -10px); }
+            75% { transform: translate(-10px, -10px); }
+            100% { transform: translate(10px, 10px); }
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .btn-animate {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+
+    <div class="h-screen flex justify-center items-center">
+        <div class="text-center p-6 bg-black bg-opacity-50 rounded-md">
+            <h1 class="text-4xl text-white mb-4">Welcome to SkillSwap</h1>
+            <p class="text-white mb-8">Exchange skills in a dynamic community</p>
+            <button class="btn-animate bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition duration-300 mr-2" onclick="location.href='201_login.html'">Login</button>
+            <button class="btn-animate bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition duration-300 mr-2" onclick="location.href='201_signup.html'">Sign Up</button>
+        </div>
+    </div>
+
+    <script>
+        const stars = document.querySelector('.stars');
+        for (let i = 0; i < 200; i++) {
+            const x = Math.floor(Math.random() * window.innerWidth);
+            const y = Math.floor(Math.random() * window.innerHeight);
+            const size = Math.random() * 10; // size of the stars
+            const duration = Math.random() * 2 + 1; // duration between 1s and 3s
+            const delay = Math.random() * 70; // delay between 0s and 30s
+            const moveDuration = Math.random() * 10 + 4; // duration for moving animation
+
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${x}px`;
+            star.style.top = `${y}px`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.backgroundColor = '#FFF';
+            star.style.animation = `sparkle ${duration}s infinite alternate, moveRandomly ${moveDuration}s infinite alternate`;
+            star.style.animationDelay = `-${delay}s`; // negative delay to start animation immediately
+
+            stars.appendChild(star);
+        }
+    </script>
+</body>
+</html>
