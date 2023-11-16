@@ -39,81 +39,78 @@
 </head>
 <body class="space-theme-bg text-white">
 
-<!-- Profile Page -->
-
-<div class="container mx-auto p-4">
-    <header class="flex flex-col sm:flex-row justify-between items-center py-4 space-theme-text">
-      <h1 class="text-3xl font-bold space-theme-accent mb-4 sm:mb-0">SKILLSWAP</h1>
-      
-      <!-- Search Bar -->
-      <form class="relative">
-        <input
-          type="search"
-          name="search"
-          placeholder="Search for services..."
-          class="pl-10 pr-4 py-2 rounded-full w-full sm:w-64 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
-        >
-        <button
-          type="submit"
-          class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-300"
-        >
-          <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M8 10l4 4m0 0l4-4m-4 4V3"></path>
-            <path d="M20 20.5a8.5 8.5 0 100-17 8.5 8.5 0 000 17z"></path>
-          </svg>
-        </button>
-      </form>
-      
-      <div class="flex items-center">
-        <span class="mr-2">Ronald Smith</span>
-        <img src="/path-to-your-avatar-image.jpg" alt="Avatar" class="h-10 w-10 rounded-full border border-gray-700">
-      </div>
+<!-- Main container for the profile page -->
+<div class="container mx-auto px-4 pt-6">
+    <!-- Header with the logo and search bar -->
+    <header class="flex flex-col sm:flex-row justify-between items-center mb-4">
+        <h1 class="text-3xl font-bold space-theme-accent mb-4 sm:mb-0">SKILLSWAP</h1>
+        <div class="w-full sm:w-auto">
+            <form class="relative mb-6">
+                <input
+                    type="search"
+                    name="search"
+                    placeholder="Search for services..."
+                    class="pl-10 pr-4 py-2 rounded-full w-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                >
+                <button
+                    type="submit"
+                    class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-300"
+                >
+                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M8 10l4 4m0 0l4-4m-4 4V3"></path>
+                        <path d="M20 20.5a8.5 8.5 0 100-17 8.5 8.5 0 000 17z"></path>
+                    </svg>
+                </button>
+            </form>
+        </div>
     </header>
 
+    <!-- Grid layout for sidebar and main content -->
+    <div class="grid grid-cols-3 gap-4">
+        <!-- Sidebar with profile information -->
+        <div class="col-span-1 bg-gray-800 rounded-lg p-4 space-theme-text mb-6">
+            <div class="flex flex-col items-center mb-6">
+                <img src="https://via.placeholder.com/150" alt="Profile" class="h-20 w-20 rounded-full mb-4 border border-gray-700">
+                <h2 class="text-xl font-semibold">Ronald Smith</h2>
+                <button class="text-blue-600 mt-2">Explore Page</button>
+                <button class="text-blue-600 mt-2">Requests</button>
+                <button class="text-blue-600 mt-2">Sign Out</button>
+            </div>
+        </div>
 
+        <!-- Main content area for services and messages -->
+        <div class="col-span-2 bg-gray-800 rounded-lg p-4 space-theme-text mb-6">
+            <!-- Services Section -->
+            <div class="mb-6">
+                <div class="flex justify-between mb-4">
+                    <h3 class="text-xl font-semibold space-theme-accent">My Services</h3>
+                    <div>
+                        <button onclick="addService()" class="btn space-theme-accent-bg rounded px-2 py-1 mr-2">Add Service</button>
+                        <button onclick="deleteService()" class="btn space-theme-accent-bg rounded px-2 py-1">Delete Service</button>
+                    </div>
+                </div>
+                <ul id="servicesList">
+                    <li>Web Development</li>
+                    <li>Teach Programming</li>
+                    <li>Paintings and Drawings</li>
+                    <li>Writing and Editing Papers</li>
+                </ul>
+            </div>
 
-
-  <div class="grid grid-cols-3 gap-4">
-    <!-- Sidebar -->
-    <div class="col-span-1 bg-gray-800 rounded-lg p-4 space-theme-text">
-      <div class="flex flex-col items-center">
-        <img src="/path-to-your-profile-image.jpg" alt="Profile" class="h-20 w-20 rounded-full mb-4 border border-gray-700">
-        <h2 class="text-xl font-semibold">Ronald Smith</h2>
-        <button class="text-blue-600 mt-2">Explore Page</button>
-        <button class="text-blue-600 mt-2">Requests</button>
-        <button class="text-blue-600 mt-2">Sign Out</button>
-      </div>
+            <!-- Messages Section -->
+            <div>
+                <h3 class="text-xl font-semibold mb-4 space-theme-accent">Recent Messages</h3>
+                <button class="btn space-theme-accent-bg rounded px-4 py-2">Click For More Messages</button>
+            </div>
+        </div>
     </div>
-
-    <!-- Main Content -->
-    <div class="col-span-2">
-      <!-- Services Section -->
-      <div class="bg-gray-800 rounded-lg p-4 mb-4 space-theme-text">
-        <h3 class="text-xl font-semibold mb-2 space-theme-accent">My Services</h3>
-        <ul>
-          <li>Web Development</li>
-          <li>Teach Programming</li>
-          <li>Paintings and Drawings</li>
-          <li>Writing and Editing Papers</li>
-        </ul>
-        <button class="space-theme-accent-bg rounded px-4 py-2 mt-4 hover:bg-blue-700 transition duration-300">Add or Delete Services</button>
-      </div>
-
-      <!-- Messages Section -->
-      <div class="bg-gray-800 rounded-lg p-4 space-theme-text">
-        <h3 class="text-xl font-semibold mb-2 space-theme-accent">Recent Messages</h3>
-        <!-- Messages List -->
-        <!-- Add messages here -->
-        <button class="space-theme-accent-bg rounded px-4 py-2 mt-4 hover:bg-blue-700 transition duration-300">Click For More Messages</button>
-      </div>
-    </div>
-  </div>
 </div>
 
-<!-- Explore Page -->
-<!-- Similar structure can be used for the Explore Page with modifications -->
-
-<!-- Include Tailwind JS for JIT mode and custom directives -->
+<!-- Tailwind JS and custom scripts -->
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  // JavaScript functions for adding and deleting services
+  // ...
+</script>
 </body>
 </html>
