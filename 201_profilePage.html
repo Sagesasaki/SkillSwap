@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkillSwap - Space Theme</title>
+<title>SkillSwap - Enhanced Space Theme</title>
 <!-- Include Tailwind CSS from CDN -->
 <link href="https://cdn.tailwindcss.com" rel="stylesheet">
 <!-- Custom Styles -->
@@ -26,14 +26,34 @@
   }
   
   /* Hover effect for buttons */
+  .btn {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
   .btn:hover {
     background-color: #8f29ff; /* Slightly lighter purple on hover */
-    transform: scale(1.05); /* Slightly larger on hover */
+    transform: translateY(-2px); /* Slightly lift up on hover */
   }
 
   .btn:active {
     background-color: #5701a3; /* Darker purple when clicked */
-    transform: scale(0.95); /* Slightly smaller when clicked */
+    transform: translateY(2px); /* Slightly down on click */
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  /* Additional styles for enhanced UI */
+  input:focus, button:focus {
+    outline: none;
+    ring: 2px;
+    ring-purple-500;
   }
 </style>
 </head>
@@ -43,23 +63,20 @@
 <div class="container mx-auto px-4 pt-6">
     <!-- Header with the logo and search bar -->
     <header class="flex flex-col sm:flex-row justify-between items-center mb-4">
-        <h1 class="text-3xl font-bold space-theme-accent mb-4 sm:mb-0">SKILLSWAP</h1>
-        <div class="w-full sm:w-auto">
+        <h1 class="text-3xl font-bold space-theme-accent mb-4 sm:mb-0 fade-in">SKILLSWAP</h1>
+        <div class="w-full sm:w-auto fade-in">
             <form class="relative mb-6">
                 <input
                     type="search"
                     name="search"
                     placeholder="Search for services..."
-                    class="pl-10 pr-4 py-2 rounded-full w-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                    class="pl-10 pr-4 py-2 rounded-full w-full bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-600 transition ease-in-out duration-300"
                 >
                 <button
                     type="submit"
-                    class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-300"
+                    class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-300 transition ease-in-out duration-300"
                 >
-                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M8 10l4 4m0 0l4-4m-4 4V3"></path>
-                        <path d="M20 20.5a8.5 8.5 0 100-17 8.5 8.5 0 000 17z"></path>
-                    </svg>
+                    <!-- SVG for search icon -->
                 </button>
             </form>
         </div>
@@ -68,18 +85,19 @@
     <!-- Grid layout for sidebar and main content -->
     <div class="grid grid-cols-3 gap-4">
         <!-- Sidebar with profile information -->
-        <div class="col-span-1 bg-gray-800 rounded-lg p-4 space-theme-text mb-6">
+        <div class="col-span-1 bg-gray-800 rounded-lg p-4 space-theme-text mb-6 fade-in">
             <div class="flex flex-col items-center mb-6">
                 <img src="https://via.placeholder.com/150" alt="Profile" class="h-20 w-20 rounded-full mb-4 border border-gray-700">
                 <h2 class="text-xl font-semibold">Ronald Smith</h2>
                 <button class="text-blue-600 mt-2">Explore Page</button>
                 <button class="text-blue-600 mt-2">Requests</button>
-                <button class="text-blue-600 mt-2">Sign Out</button>
+                <a href="201_landingPage.html" class="text-blue-600 mt-2">Sign Out</a>
+
             </div>
         </div>
 
         <!-- Main content area for services and messages -->
-        <div class="col-span-2 bg-gray-800 rounded-lg p-4 space-theme-text mb-6">
+        <div class="col-span-2 bg-gray-800 rounded-lg p-4 space-theme-text mb-6 fade-in">
             <!-- Services Section -->
             <div class="mb-6">
                 <div class="flex justify-between mb-4">
@@ -110,7 +128,13 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   // JavaScript functions for adding and deleting services
-  // ...
+  function addService() {
+    // Your addService implementation
+  }
+
+  function deleteService() {
+    // Your deleteService implementation
+  }
 </script>
 </body>
 </html>
