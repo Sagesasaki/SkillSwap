@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +37,7 @@
     <div id="particles-js"></div>
     <div class="form-container max-w-sm mx-auto">
         <h1 class="text-3xl font-bold mb-4 text-center">Welcome to SkillSwap!</h1>
-        <form action="201_explorePage.html"> <!-- Specify the target page here -->
+        <form action="201_explorePage.html" id="signup-form"> <!-- Specify the target page here -->
             <div class="mb-4">
                 <label class="block text-sm font-bold mb-2" for="username">Username</label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
@@ -62,7 +52,7 @@
                 <p id="password_match_message" class="text-red-500 text-sm mt-2"></p> <!-- Display the message here -->
             </div>
             <div class="flex items-center justify-between mt-4">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                <button id="signup-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" disabled>
                     Sign Up
                 </button>
                 <a href="201_login.html" class="text-blue-500 hover:text-blue-700">Already have an account?</a>
@@ -190,9 +180,35 @@
             }
         }
 
+        // Function to enable or disable Sign Up button based on password match
+        function enableOrDisableSignupButton() {
+            var password = $("#password").val();
+            var confirmPassword = $("#confirm_password").val();
+            var signupButton = $("#signup-button");
+
+            if (password === confirmPassword) {
+                signupButton.prop("disabled", false);
+            } else {
+                signupButton.prop("disabled", true);
+            }
+        }
+
         // Event listener to check password match as the user types
-        $("#password, #confirm_password").on("input", checkPasswordMatch);
+        $("#password, #confirm_password").on("input", function() {
+            checkPasswordMatch();
+            enableOrDisableSignupButton();
+        });
+
+        // Prevent form submission if passwords don't match
+        $("#signup-form").on("submit", function(event) {
+            var password = $("#password").val();
+            var confirmPassword = $("#confirm_password").val();
+
+            if (password !== confirmPassword) {
+                event.preventDefault(); // Prevent form submission
+                alert("Passwords do not match. Please make sure they match before signing up.");
+            }
+        });
       </script>
-      
 </body>
 </html>
