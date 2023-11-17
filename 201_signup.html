@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        /* Custom styles */
         .space-theme {
             position: relative;
             background-color: #0a0a23;
@@ -30,6 +31,29 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 10;
+            opacity: 0; /* Initially set to invisible */
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .password-match-message {
+            margin-top: 0.5rem;
+        }
+
+        .password-match-message.text-green-500 {
+            color: #00ff00;
+        }
+
+        .password-match-message.text-red-500 {
+            color: #ff0000;
         }
     </style>
 </head>
@@ -49,7 +73,7 @@
             <div class="mb-4">
                 <label class="block text-sm font-bold mb-2" for="confirm_password">Confirm Password</label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="confirm_password" type="password" placeholder="Confirm Password">
-                <p id="password_match_message" class="text-red-500 text-sm mt-2"></p> <!-- Display the message here -->
+                <p id="password_match_message" class="password-match-message text-red-500 text-sm mt-2"></p> <!-- Display the message here -->
             </div>
             <div class="flex items-center justify-between mt-4">
                 <button id="signup-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" disabled>

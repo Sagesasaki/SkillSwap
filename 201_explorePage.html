@@ -48,13 +48,27 @@
     background-color: #7f00ff; /* Slightly lighter background on hover */
     transition: background-color 0.3s ease;
   }
+
+  /* Fade-in effect on page load */
+  body {
+    animation: fadeIn 1s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 </style>
 </head>
 <body class="space-theme-bg text-white">
 
 <!-- Navigation Header -->
 <header class="flex justify-between items-center p-4">
-    <a href="index.html" class="text-xl space-theme-accent font-bold">SkillSwap</a>
+    <a href="index.html" class="text-5xl space-theme-accent font-bold transition-transform hover:scale-110">SkillSwap</a>
     <div class="flex items-center space-x-4"> <!-- Added flex container with spacing -->
         <div class="relative">
             <input type="text" placeholder="Search" class="p-2 pl-8 pr-2 rounded-full bg-gray-700 text-white border-2 border-gray-600 focus:outline-none focus:border-purple-700">
@@ -69,9 +83,6 @@
     </div>
 </header>
 
-
-
-
 <!-- Main container for the Explore page -->
 <div class="container mx-auto px-4 py-6">
     <!-- Page Title -->
@@ -80,8 +91,6 @@
     <!-- Grid layout for service cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Dynamically generated service cards -->
-        
-
         <!-- person 1 -->
         <div class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
             <!-- Service Image -->
@@ -144,7 +153,6 @@
             <button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
         </div>
 
-
         <!-- person 6 -->
         <div class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
             <!-- Service Image -->
@@ -159,12 +167,7 @@
         </div>
     
     </div>
-
-    </div>
 </div>
-
-
-    
 
 <!-- Tailwind JS and custom scripts -->
 <script src="https://cdn.tailwindcss.com"></script>

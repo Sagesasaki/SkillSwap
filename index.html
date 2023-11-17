@@ -47,12 +47,27 @@
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="stars"></div>
 
-    <div class="h-screen flex justify-center items-center">
+    <div class="h-screen flex justify-center items-center fade-in">
         <div class="text-center p-16 bg-black bg-opacity-50 rounded-md">
             <h1 class="text-7xl text-white mb-10">SkillSwap</h1>
             <p class="text-white text-2xl mb-16">Exchange skills in a dynamic community</p>
@@ -61,9 +76,6 @@
         </div>
     </div>
     
-    
-    
-
     <script>
         const stars = document.querySelector('.stars');
         for (let i = 0; i < 200; i++) {
