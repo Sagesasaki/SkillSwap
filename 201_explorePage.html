@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Services - SkillSwap</title>
+<!-- Include Tailwind CSS from CDN -->
+<link href="https://cdn.tailwindcss.com" rel="stylesheet">
+<!-- Custom Styles -->
+<style>
+  /* Add custom styles here */
+  .space-theme-bg {
+    background-color: #0a0b1a; /* Deep Space Blue */
+  }
+
+  .space-theme-accent {
+    color: #7f00ff; /* Neon Purple for that video game feel */
+  }
+
+  .space-theme-accent-bg {
+    background-color: #7f00ff; /* Neon Purple background for buttons */
+  }
+
+  .space-theme-text {
+    color: #ccd6f6; /* Soft light blue for text */
+  }
+
+  /* Hover effect for buttons */
+  .btn:hover {
+    background-color: #8f29ff; /* Slightly lighter purple on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+  }
+
+  .btn:active {
+    background-color: #5701a3; /* Darker purple when clicked */
+    transform: scale(0.95); /* Slightly smaller when clicked */
+  }
+
+  /* Card hover effect */
+  .card:hover {
+    background-color: #2a2f45; /* Slightly lighter background on hover */
+    transform: translateY(-5px); /* Raise card */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Profile icon link */
+  .profile-link:hover {
+    background-color: #7f00ff; /* Slightly lighter background on hover */
+    transition: background-color 0.3s ease;
+  }
+</style>
+</head>
+<body class="space-theme-bg text-white">
+
+<!-- Navigation Header -->
+<header class="flex justify-between items-center p-4">
+    <a href="index.html" class="text-xl space-theme-accent font-bold">SkillSwap</a>
+    <a href="201_profilePage.html" class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">
+        <img src="https://via.placeholder.com/150" alt="Profile" class="w-8 h-8 rounded-full">
+    </a>
+</header>
+
+<!-- Main container for the Explore page -->
+<div class="container mx-auto px-4 py-6">
+    <!-- Page Title -->
+    <h2 class="text-3xl font-bold space-theme-accent mb-6">Explore Services</h2>
+
+    <!-- Grid layout for service cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Dynamically generated service cards -->
+        <!-- Example card -->
+        <div class="card bg-gray-800 rounded-lg p-4 space-theme-text mb-6 hover:shadow-lg cursor-pointer">
+            <h3 class="text-lg font-semibold mb-2">Jane Doe - Web Development</h3>
+            <p class="mb-4">Experienced full-stack developer available for freelance projects. Specializing in React and Node.js.</p>
+            <button class="btn space-theme-accent-bg rounded px-4 py-2">View Service</button>
+        </div>
+        <!-- More cards here -->
+        <!-- Grid layout for service cards -->
+    
+        <div class="card bg-gray-800 rounded-lg p-4 space-theme-text mb-6 hover:shadow-lg cursor-pointer">
+            <h3 class="text-lg font-semibold mb-2">Sage Sasaki - Pianist</h3>
+            <p class="mb-4">Experienced concert pianist. Will give piano lessons to anyone!</p>
+            <button class="btn space-theme-accent-bg rounded px-4 py-2">View Service</button>
+        </div>
+        <!-- More cards here -->
+        <div class="card bg-gray-800 rounded-lg p-4 space-theme-text mb-6 hover:shadow-lg cursor-pointer">
+            <h3 class="text-lg font-semibold mb-2">Michael Phelps - Swimmer</h3>
+            <p class="mb-4">23 Olympic Gold Medalist–– Will train you to become an Olympic Swimmer</p>
+            <button class="btn space-theme-accent-bg rounded px-4 py-2">View Service</button>
+        </div>
+        <!-- More cards here -->
+    </div>
+
+    </div>
+</div>
+
+
+    
+
+<!-- Tailwind JS and custom scripts -->
+<script src="https://cdn.tailwindcss.com"></script>
+</body>
+</html>
