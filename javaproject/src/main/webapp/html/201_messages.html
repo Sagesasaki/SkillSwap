@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat Messages - SkillSwap</title>
+<!-- Include Tailwind CSS from CDN -->
+<link href="https://cdn.tailwindcss.com" rel="stylesheet">
+<style>
+  /* Page and container setup */
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    color: white; /* Set text color to white */
+  }
+  body {
+    background-color: #111827; /* Dark background for the whole page */
+  }
+
+  /* Chat layout styling */
+  .chat-container {
+    display: flex;
+    height: 100%;
+  }
+
+  /* Chat list */
+  .chat-list {
+    width: 20%;
+    background: #1F2937;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  /* Chat items */
+  .chat-item {
+    color: #9CA3AF;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    list-style-type: none; /* Remove bullet points */
+  }
+  .chat-item:hover {
+    background: #374151;
+  }
+
+  /* Message area */
+  .message-area {
+    flex-grow: 1;
+    background: #111827;
+    display: flex;
+    flex-direction: column;
+  }
+  .message-display {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+
+  /* Messages */
+  .message {
+    margin: 0.5rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    max-width: 60%;
+    word-wrap: break-word;
+  }
+  .message-sent {
+    background: #4F46E5; /* Sender message color */
+    margin-left: auto;
+    color: white; /* Ensure sent message text is also white for consistency */
+  }
+  .message-received {
+    background: #374151; /* Receiver message color */
+    margin-right: auto;
+    color: white; /* Change text color to white */
+  }
+
+
+  /* Input area */
+  .input-area {
+    padding: 1rem;
+    background: #1F2937;
+    border-top: 2px solid #000;
+  }
+  .input-area input {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    margin-right: 0.5rem;
+    border-radius: 9999px;
+    border: none;
+    background: #374151;
+    color: #D1D5DB;
+    outline: none;
+    max-width: 75%; /* Updated max-width to 75% */
+}
+
+  .input-area button {
+    padding: 0.75rem 1.5rem;
+    background: #4F46E5; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+  <!-- Chat list -->
+  <div class="chat-list">
+    <ul id="chatList">
+      <!-- Chat list items will be dynamically populated here -->
+    </ul>
+  </div>
+
+  <!-- Chat window -->
+  <div class="message-area">
+    <!-- Chat messages display -->
+    <div id="messageArea" class="message-display">
+      <!-- Messages will be dynamically populated here -->
+    </div>
+    <!-- Message input area -->
+    <div class="input-area">
+      <input id="messageInput" type="text" placeholder="Type a message..." class="w-full px-4 py-2" />
+      <button onclick="sendMessage()" class="send-button">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Sample data for users and messages
+  let chats = [
+    { id: 1, name: "Alice", messages: [{ text: "How's it going?", owner: 'Alice' }] },
+    { id: 2, name: "Bob", messages: [{ text: "Are we still on for today?", owner: 'Bob' }] },
+    { id: 3, name: "Charlie", messages: [] }, // Add Charlie
+    { id: 4, name: "David", messages: [] },   // Add David
+    { id: 5, name: "Eva", messages: [] }       // Add Eva
+  ];
+  let currentUser = "You";
+
+  // Function to initialize the chat list
+  function initChatList() {
+    const chatList = document.getElementById('chatList');
+    chats.forEach(chat => {
+      let chatItem = document.createElement('li');
+      chatItem.classList.add('chat-item');
+      chatItem.textContent = chat.name;
+      chatItem.onclick = function() { setActiveChat(chat.id); };
+      chatList.appendChild(chatItem);
+    });
+  }
+
+  // Function to set active chat
+  function setActiveChat(chatId) {
+    const chat = chats.find(c => c.id === chatId);
+    document.getElementById('messageArea').innerHTML = '';
+    chat.messages.forEach(message => {
+      displayMessage(message.text, message.owner !== currentUser);
+    });
+  }
+
+  // Function to display a message
+function displayMessage(text, isReceived) {
+  const messageArea = document.getElementById('messageArea');
+  let messageDiv = document.createElement('div');
+  let messageContent = document.createElement('div');
+  messageContent.textContent = text;
+  
+  if (isReceived) {
+    messageDiv.classList.add('message', 'message-received');
+  } else {
+    messageDiv.classList.add('message', 'message-sent');
+  }
+  
+  messageDiv.appendChild(messageContent);
+  messageArea.appendChild(messageDiv);
+  messageArea.scrollTop = messageArea.scrollHeight; // Auto-scroll to the latest message
+}
+
+  // Function to send a new message
+    function sendMessage() {
+    const input = document.getElementById('messageInput');
+    const text = input.value.trim();
+    if (text) {
+        displayMessage(text, false);
+        input.value = ''; // Clear the input after sending
+    }
+    }
+
+  // Initialize the chat list on load
+  window.onload = initChatList;
+</script>
+
+</body>
+</html>
