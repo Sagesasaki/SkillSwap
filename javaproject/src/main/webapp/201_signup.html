@@ -61,14 +61,18 @@
     <div id="particles-js"></div>
     <div class="form-container max-w-sm mx-auto">
         <h1 class="text-3xl font-bold mb-4 text-center">Welcome to SkillSwap!</h1>
-        <form action="201_explorePage.html" id="signup-form"> <!-- Specify the target page here -->
+        <form id="signup-form" action="registerUser" method="post"> <!-- Specify the target page here -->
             <div class="mb-4">
                 <label class="block text-sm font-bold mb-2" for="username">Username</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
+                <input name="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-bold mb-2" for="name">Name</label>
+                <input name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
             </div>
             <div class="mb-1.5">
                 <label class="block text-sm font-bold mb-2" for="password">Password</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password">
+                <input name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password">
             </div>
             <div class="mb-4">
                 <label class="block text-sm font-bold mb-2" for="confirm_password">Confirm Password</label>

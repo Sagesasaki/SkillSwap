@@ -96,6 +96,7 @@ public class UserDAO {
 		//https://www.baeldung.com/jdbc-resultset 2 lines 11/24
 	}
 	
+	
 	private User parseResultSet(ResultSet rs) throws SQLException{
 		User user = new User();
 		user.setUser_id(rs.getInt("user_id"));
@@ -104,21 +105,21 @@ public class UserDAO {
 		user.setName(rs.getString("name"));
 		return user;
 	}
-	public static void main(String[] args) {
-		User user = new User();
-		user.setName("Bob Bobson");
-		user.setPassword("pass");
-		user.setUser_id(1);
-		user.setUsername("username");
-		//DBConnector.startConnection();
-		UserDAO uDao = new UserDAO();
-		uDao.registerUser(user);
-		User user2 = uDao.loadUser("username", "pass");
-		System.out.println(user2.getUser_id());
-		System.out.println(user2.getUsername());
-		System.out.println(user2.getPassword());
-		System.out.println(user2.getName());
-	}
+//	public static void main(String[] args) {
+//		User user = new User();
+//		user.setName("Bob Bobson");
+//		user.setPassword("pass");
+//		user.setUser_id(1);
+//		user.setUsername("username");
+//		//DBConnector.startConnection();
+//		UserDAO uDao = new UserDAO();
+//		uDao.registerUser(user);
+//		User user2 = uDao.loadUser("username", "pass");
+//		System.out.println(user2.getUser_id());
+//		System.out.println(user2.getUsername());
+//		System.out.println(user2.getPassword());
+//		System.out.println(user2.getName());
+//	}
 	
 }
 
