@@ -1,141 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkillSwap - Enhanced Space Theme</title>
-<!-- Include Tailwind CSS from CDN -->
-<link href="https://cdn.tailwindcss.com" rel="stylesheet">
-<!-- Custom Styles -->
-<style>
-  /* Add custom styles here */
-  .space-theme-bg {
-    background-color: #0a0b1a; /* Deep Space Blue */
-  }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SkillSwap - Enhanced Space Theme</title>
+	<!-- Include Tailwind CSS from CDN -->
+	<link href="https://cdn.tailwindcss.com" rel="stylesheet">
+	<!-- Custom Styles -->
+	<script>
+		window.onload = function () {
+			fetch('checkLoginStatus')
+				.then(response => response.json())
+				.then(data => {
+					if (!data.isLoggedIn) {
+						window.location.href = '201_login.html?error=Please log in to continue';
+					}
+				})
+				.catch(error => {
+					console.error('Error checking login status:', error);
+				});
+		};
+	</script>
+	<style>
+		/* Add custom styles here */
+		.space-theme-bg {
+			background-color: #0a0b1a;
+			/* Deep Space Blue */
+		}
 
-  .space-theme-accent {
-    color: #7f00ff; /* Neon Purple for that video game feel */
-  }
+		.space-theme-accent {
+			color: #7f00ff;
+			/* Neon Purple for that video game feel */
+		}
 
-  .space-theme-accent-bg {
-    background-color: #7f00ff; /* Neon Purple background for buttons */
-  }
+		.space-theme-accent-bg {
+			background-color: #7f00ff;
+			/* Neon Purple background for buttons */
+		}
 
-  .space-theme-text {
-    color: #ccd6f6; /* Soft light blue for text */
-  }
-  
-  /* Hover effect for buttons */
-  .btn {
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
-  .btn:hover {
-    background-color: #8f29ff; /* Slightly lighter purple on hover */
-    transform: translateY(-2px); /* Slightly lift up on hover */
-  }
+		.space-theme-text {
+			color: #ccd6f6;
+			/* Soft light blue for text */
+		}
 
-  .btn:active {
-    background-color: #5701a3; /* Darker purple when clicked */
-    transform: translateY(2px); /* Slightly down on click */
-  }
+		/* Hover effect for buttons */
+		.btn {
+			transition: transform 0.3s ease, background-color 0.3s ease;
+		}
 
-  /* Animations */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+		.btn:hover {
+			background-color: #8f29ff;
+			/* Slightly lighter purple on hover */
+			transform: translateY(-2px);
+			/* Slightly lift up on hover */
+		}
 
-  .fade-in {
-    animation: fadeIn 1s ease-out;
-  }
+		.btn:active {
+			background-color: #5701a3;
+			/* Darker purple when clicked */
+			transform: translateY(2px);
+			/* Slightly down on click */
+		}
 
-  /* Additional styles for enhanced UI */
-  input:focus, button:focus {
-    outline: none;
-    ring: 2px;
-    ring-purple-500;
-  }
-</style>
+		/* Animations */
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(10px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.fade-in {
+			animation: fadeIn 1s ease-out;
+		}
+
+		/* Additional styles for enhanced UI */
+		input:focus,
+		button:focus {
+			outline: none;
+			ring: 2px;		}
+	</style>
 </head>
+
 <body class="space-theme-bg text-white">
 
-<!-- Main container for the profile page -->
-<div class="container mx-auto px-4 pt-6">
-    <!-- Header with the logo and search bar -->
-    <header class="flex flex-col sm:flex-row justify-between items-center mb-4">
-        <h1 class="text-3xl font-bold space-theme-accent mb-4 sm:mb-0 fade-in">Profile Page</h1>
-        <div class="w-full sm:w-auto fade-in">
-            <form class="relative mb-6">
-                <input
-                    type="search"
-                    name="search"
-                    placeholder="Search for services..."
-                    class="pl-10 pr-4 py-2 rounded-full w-full bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-600 transition ease-in-out duration-300"
-                >
-                <button
-                    type="submit"
-                    class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-300 transition ease-in-out duration-300"
-                >
-                    <!-- SVG for search icon -->
-                </button>
-            </form>
-        </div>
-    </header>
+	<!-- Main container for the profile page -->
+	<div class="container mx-auto px-4 pt-6">
+		<!-- Header with the logo and search bar -->
+		<header class="flex flex-col sm:flex-row justify-between items-center mb-4">
+			<h1 class="text-3xl font-bold space-theme-accent mb-4 sm:mb-0 fade-in">Profile Page</h1>
+			<div class="w-full sm:w-auto fade-in">
+				<form class="relative mb-6">
+					<input type="search" name="search" placeholder="Search for services..."
+						class="pl-10 pr-4 py-2 rounded-full w-full bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-600 transition ease-in-out duration-300">
+					<button type="submit"
+						class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-300 transition ease-in-out duration-300">
+						<!-- SVG for search icon -->
+					</button>
+				</form>
+			</div>
+		</header>
 
-    <!-- Grid layout for sidebar and main content -->
-    <div class="grid grid-cols-3 gap-4">
-        <!-- Sidebar with profile information -->
-        <div class="col-span-1 bg-gray-800 rounded-lg p-4 space-theme-text mb-6 fade-in">
-            <div class="flex flex-col items-center mb-6">
-                <img src="https://via.placeholder.com/150" alt="Profile" class="h-20 w-20 rounded-full mb-4 border border-gray-700">
-                <h2 class="text-xl font-semibold">Ronald Smith</h2>
-                <a href="201_explorePage.html" class="text-blue-600 mt-2">Explore Page</a>
-                <button class="text-blue-600 mt-2">Requests</button>
-                <a href="index.html" class="text-blue-600 mt-2">Sign Out</a>
+		<!-- Grid layout for sidebar and main content -->
+		<div class="grid grid-cols-3 gap-4">
+			<!-- Sidebar with profile information -->
+			<div class="col-span-1 bg-gray-800 rounded-lg p-4 space-theme-text mb-6 fade-in">
+				<div class="flex flex-col items-center mb-6">
+					<img src="https://via.placeholder.com/150" alt="Profile"
+						class="h-20 w-20 rounded-full mb-4 border border-gray-700">
+					<h2 class="text-xl font-semibold">Ronald Smith</h2>
+					<a href="201_explorePage.html" class="text-blue-600 mt-2">Explore Page</a>
+					<button class="text-blue-600 mt-2">Requests</button>
+					<a href="logoutUser" class="text-blue-600 mt-2">Sign Out</a>
 
-            </div>
-        </div>
+				</div>
+			</div>
 
-        <!-- Main content area for services and messages -->
-        <div class="col-span-2 bg-gray-800 rounded-lg p-4 space-theme-text mb-6 fade-in">
-            <!-- Services Section -->
-            <div class="mb-6">
-                <div class="flex justify-between mb-4">
-                    <h3 class="text-xl font-semibold space-theme-accent">My Services</h3>
-                    <div>
-                        <button onclick="addService()" class="btn space-theme-accent-bg rounded px-2 py-1 mr-2">Add Service</button>
-                        <button onclick="deleteService()" class="btn space-theme-accent-bg rounded px-2 py-1">Delete Service</button>
-                    </div>
-                </div>
-                <ul id="servicesList">
-                    <li>Web Development</li>
-                    <li>Teach Programming</li>
-                    <li>Paintings and Drawings</li>
-                    <li>Writing and Editing Papers</li>
-                </ul>
-            </div>
+			<!-- Main content area for services and messages -->
+			<div class="col-span-2 bg-gray-800 rounded-lg p-4 space-theme-text mb-6 fade-in">
+				<!-- Services Section -->
+				<div class="mb-6">
+					<div class="flex justify-between mb-4">
+						<h3 class="text-xl font-semibold space-theme-accent">My Services</h3>
+						<div>
+							<button onclick="addService()" class="btn space-theme-accent-bg rounded px-2 py-1 mr-2">Add
+								Service</button>
+							<button onclick="deleteService()" class="btn space-theme-accent-bg rounded px-2 py-1">Delete
+								Service</button>
+						</div>
+					</div>
+					<ul id="servicesList">
+						<li>Web Development</li>
+						<li>Teach Programming</li>
+						<li>Paintings and Drawings</li>
+						<li>Writing and Editing Papers</li>
+					</ul>
+				</div>
 
-            <!-- Messages Section -->
-            <div>
-                <h3 class="text-xl font-semibold mb-4 space-theme-accent">Recent Messages</h3>
-                <button onclick="location.href='201_messages.html'" class="btn space-theme-accent-bg rounded px-4 py-2">Click For More Messages</button>
+				<!-- Messages Section -->
+				<div>
+					<h3 class="text-xl font-semibold mb-4 space-theme-accent">Recent Messages</h3>
+					<button onclick="location.href='201_messages.html'"
+						class="btn space-theme-accent-bg rounded px-4 py-2">Click For More Messages</button>
 
-            </div>
-        </div>
-    </div>
-</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<!-- Tailwind JS and custom scripts -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  // JavaScript functions for adding and deleting services
-  function addService() {
-    // Your addService implementation
-  }
+	<!-- Tailwind JS and custom scripts -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		// JavaScript functions for adding and deleting services
+		function addService() {
+			// Your addService implementation
+		}
 
-  function deleteService() {
-    // Your deleteService implementation
-  }
-</script>
+		function deleteService() {
+			// Your deleteService implementation
+		}
+	</script>
 </body>
+
 </html>

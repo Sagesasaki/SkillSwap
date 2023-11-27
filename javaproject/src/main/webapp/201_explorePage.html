@@ -1,247 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Explore Services - SkillSwap</title>
-<!-- Include Tailwind CSS from CDN -->
-<link href="https://cdn.tailwindcss.com" rel="stylesheet">
-<!-- Custom Styles -->
-<style>
-  /* Add custom styles here */
-  .space-theme-bg {
-    background-color: #0a0b1a; /* Deep Space Blue */
-  }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Explore Services - SkillSwap</title>
+	<!-- Include Tailwind CSS from CDN -->
+	<link href="https://cdn.tailwindcss.com" rel="stylesheet">
+	<!-- Custom Styles -->
+	<script>
+		window.onload = function () {
+			fetch('checkLoginStatus')
+				.then(response => response.json())
+				.then(data => {
+					if (!data.isLoggedIn) {
+						window.location.href = '201_login.html?error=Please log in to continue';
+					}
+				})
+				.catch(error => {
+					console.error('Error checking login status:', error);
+				});
+		};
+	</script>
 
-  .space-theme-accent {
-    color: #7f00ff; /* Neon Purple for that video game feel */
-  }
+	<style>
+		/* Add custom styles here */
+		.space-theme-bg {
+			background-color: #0a0b1a;
+			/* Deep Space Blue */
+		}
 
-  .space-theme-accent-bg {
-    background-color: #7f00ff; /* Neon Purple background for buttons */
-  }
+		.space-theme-accent {
+			color: #7f00ff;
+			/* Neon Purple for that video game feel */
+		}
 
-  .space-theme-text {
-    color: #ccd6f6; /* Soft light blue for text */
-  }
+		.space-theme-accent-bg {
+			background-color: #7f00ff;
+			/* Neon Purple background for buttons */
+		}
 
-  /* Hover effect for buttons */
-  .btn:hover {
-    background-color: #8f29ff; /* Slightly lighter purple on hover */
-    transform: scale(1.05); /* Slightly larger on hover */
-  }
+		.space-theme-text {
+			color: #ccd6f6;
+			/* Soft light blue for text */
+		}
 
-  .btn:active {
-    background-color: #5701a3; /* Darker purple when clicked */
-    transform: scale(0.95); /* Slightly smaller when clicked */
-  }
+		/* Hover effect for buttons */
+		.btn:hover {
+			background-color: #8f29ff;
+			/* Slightly lighter purple on hover */
+			transform: scale(1.05);
+			/* Slightly larger on hover */
+		}
 
-  /* Card hover effect */
-  .card:hover {
-    background-color: #2a2f45; /* Slightly lighter background on hover */
-    transform: translateY(-5px); /* Raise card */
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
+		.btn:active {
+			background-color: #5701a3;
+			/* Darker purple when clicked */
+			transform: scale(0.95);
+			/* Slightly smaller when clicked */
+		}
 
-  /* Profile icon link */
-  .profile-link:hover {
-    background-color: #7f00ff; /* Slightly lighter background on hover */
-    transition: background-color 0.3s ease;
-  }
+		/* Card hover effect */
+		.card:hover {
+			background-color: #2a2f45;
+			/* Slightly lighter background on hover */
+			transform: translateY(-5px);
+			/* Raise card */
+			transition: background-color 0.3s ease, transform 0.3s ease;
+		}
 
-  /* Fade-in effect on page load */
-  body {
-    animation: fadeIn 1s ease-in;
-  }
+		/* Profile icon link */
+		.profile-link:hover {
+			background-color: #7f00ff;
+			/* Slightly lighter background on hover */
+			transition: background-color 0.3s ease;
+		}
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  /* Star rating styles */
-  .star-rating {
-    display: flex;
-    align-items: center;
-  }
+		/* Fade-in effect on page load */
+		body {
+			animation: fadeIn 1s ease-in;
+		}
 
-  .star {
-    color: #ffd700; /* Gold color for stars */
-    font-size: 18px;
-    margin-right: 3px;
-  }
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
 
-  .star-number {
-    font-size: 18px;
-    margin-left: 5px;
-  }
-</style>
+			to {
+				opacity: 1;
+			}
+		}
+
+		/* Star rating styles */
+		.star-rating {
+			display: flex;
+			align-items: center;
+		}
+
+		.star {
+			color: #ffd700;
+			/* Gold color for stars */
+			font-size: 18px;
+			margin-right: 3px;
+		}
+
+		.star-number {
+			font-size: 18px;
+			margin-left: 5px;
+		}
+	</style>
 </head>
+
 <body class="space-theme-bg text-white">
 
-<!-- Navigation Header -->
-<header class="flex justify-between items-center p-4">
-    <a href="index.html" class="text-5xl space-theme-accent font-bold transition-transform hover:scale-110">SkillSwap</a>
-    <div class="flex items-center space-x-4"> <!-- Added flex container with spacing -->
-        <div class="relative">
-            <input type="text" placeholder="Search" class="p-2 pl-8 pr-2 rounded-full bg-gray-700 text-white border-2 border-gray-600 focus:outline-none focus:border-purple-700">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 absolute left-2 top-1/2 transform -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.9-4.9M15 10a5 5 0 11-10 0 5 5 0 0110 0z"/>
-            </svg>
-        </div>
-        <a href="201_profilePage.html" class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">
-            <img src="https://via.placeholder.com/150" alt="Profile" class="w-8 h-8 rounded-full"> 
-        </a>
-        <form action="logoutUser" method="get">
-        	<button type="submit" class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">Logout</button>
-		</form>
-    </div>
-</header>
+	<!-- Navigation Header -->
+	<header class="flex justify-between items-center p-4">
+		<a href="index.html"
+			class="text-5xl space-theme-accent font-bold transition-transform hover:scale-110">SkillSwap</a>
+		<div class="flex items-center space-x-4"> <!-- Added flex container with spacing -->
+			<div class="relative">
+				<input type="text" placeholder="Search"
+					class="p-2 pl-8 pr-2 rounded-full bg-gray-700 text-white border-2 border-gray-600 focus:outline-none focus:border-purple-700">
+				<svg xmlns="http://www.w3.org/2000/svg"
+					class="h-6 w-6 text-gray-400 absolute left-2 top-1/2 transform -translate-y-1/2" fill="none"
+					viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+						d="M21 21l-4.9-4.9M15 10a5 5 0 11-10 0 5 5 0 0110 0z" />
+				</svg>
+			</div>
+			<a href="201_profilePage.html"
+				class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">
+				<img src="https://via.placeholder.com/150" alt="Profile" class="w-8 h-8 rounded-full">
+			</a>
+			<form action="logoutUser" method="get">
+				<button type="submit"
+					class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">Logout</button>
+			</form>
+		</div>
+	</header>
 
-<!-- Main container for the Explore page -->
-<div class="container mx-auto px-4 py-6">
-    <!-- Page Title -->
-    <h2 class="text-4xl font-bold space-theme-accent mb-6">Explore Services</h2>
+	<!-- Main container for the Explore page -->
+	<div class="container mx-auto px-4 py-6">
+		<!-- Page Title -->
+		<h2 class="text-4xl font-bold space-theme-accent mb-6">Explore Services</h2>
 
-    <!-- Grid layout for service cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Dynamically generated service cards -->
-        <!-- person 1 -->
-        <div class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
-            <!-- Service Image -->
-            <img src="https://i.ytimg.com/vi/bMknfKXIFA8/maxresdefault.jpg" alt="Service" class="w-full h-64 object-cover">
-            <!-- Service Info -->
-            <div class="p-4">
-                <h3 class="text-lg font-semibold mb-2">Jane Doe</h3>
-                <p>Experienced full-stack developer available for freelance projects. Specializing in React and Node.js.</p>
-            </div>
-            <!-- Star Rating -->
-            <div class="star-rating">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star-number">4.7 (30)</span>
-            </div>
-            <button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
-        </div>
+		<!-- Grid layout for service cards -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<!-- Dynamically generated service cards -->
+			<!-- person 1 -->
+			<div
+				class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
+				<!-- Service Image -->
+				<img src="https://i.ytimg.com/vi/bMknfKXIFA8/maxresdefault.jpg" alt="Service"
+					class="w-full h-64 object-cover">
+				<!-- Service Info -->
+				<div class="p-4">
+					<h3 class="text-lg font-semibold mb-2">Jane Doe</h3>
+					<p>Experienced full-stack developer available for freelance projects. Specializing in React and
+						Node.js.</p>
+				</div>
+				<!-- Star Rating -->
+				<div class="star-rating">
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star-number">4.7 (30)</span>
+				</div>
+				<button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
+			</div>
 
-        <!-- person 2 -->
-        <div class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
-            <!-- Service Image -->
-            <img src="https://koreajoongangdaily.joins.com/data/photo/2022/06/19/9ddf17e7-9b49-45b3-b688-6ed3485662e4.jpg" alt="Service" class="w-full h-64 object-cover">
-            <!-- Service Info -->
-            <div class="p-4">
-                <h3 class="text-lg font-semibold mb-2">Sage Sasaki</h3>
-                <p>Experienced concert pianist. Will give piano lessons to anyone! Can do zoom or in person on USC campus</p>
-            </div>
-            <!-- Star Rating -->
-            <div class="star-rating">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star-number">5.0 (12)</span>
-            </div>
-            <button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
-        </div>
+			<!-- person 2 -->
+			<div
+				class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
+				<!-- Service Image -->
+				<img src="https://koreajoongangdaily.joins.com/data/photo/2022/06/19/9ddf17e7-9b49-45b3-b688-6ed3485662e4.jpg"
+					alt="Service" class="w-full h-64 object-cover">
+				<!-- Service Info -->
+				<div class="p-4">
+					<h3 class="text-lg font-semibold mb-2">Sage Sasaki</h3>
+					<p>Experienced concert pianist. Will give piano lessons to anyone! Can do zoom or in person on USC
+						campus</p>
+				</div>
+				<!-- Star Rating -->
+				<div class="star-rating">
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star-number">5.0 (12)</span>
+				</div>
+				<button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
+			</div>
 
-        <!-- person 3 -->
-        <div class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
-            <!-- Service Image -->
-            <img src="https://blog.myswimpro.com/wp-content/uploads/2020/09/phelps-medals.jpg" alt="Service" class="w-full h-64 object-cover">
-            <!-- Service Info -->
-            <div class="p-4">
-                <h3 class="text-lg font-semibold mb-2">Michael Phelps</h3>
-                <p>23 Olympic Gold Medalist–– Will train you to become an Olympic Swimmer 😈 🏊</p>
-            </div>
-            <!-- Star Rating -->
-            <div class="star-rating">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star-number">4.5 (392)</span>
-            </div>
-            <button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
-        </div>
+			<!-- person 3 -->
+			<div
+				class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
+				<!-- Service Image -->
+				<img src="https://blog.myswimpro.com/wp-content/uploads/2020/09/phelps-medals.jpg" alt="Service"
+					class="w-full h-64 object-cover">
+				<!-- Service Info -->
+				<div class="p-4">
+					<h3 class="text-lg font-semibold mb-2">Michael Phelps</h3>
+					<p>23 Olympic Gold Medalist–– Will train you to become an Olympic Swimmer 😈 🏊</p>
+				</div>
+				<!-- Star Rating -->
+				<div class="star-rating">
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star-number">4.5 (392)</span>
+				</div>
+				<button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
+			</div>
 
-        <!-- person 4-->
-        <div class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
-            <!-- Service Image -->
-            <img src="https://i.ytimg.com/vi/Fpnx9hsCSvE/maxresdefault.jpg" alt="Service" class="w-full h-64 object-cover">
-            <!-- Service Info -->
-            <div class="p-4">
-                <h3 class="text-lg font-semibold mb-2">Emily Johnson</h3>
-                <p>Skill: Painting<br><br>
-                    Description: Emily Johnson is a talented painter known for her vibrant and expressive artwork. She can teach you the art of painting through personalized lessons that focus on color theory, brushwork techniques, and composition. With her patient and encouraging teaching style, Emily will help you unlock your creativity and develop your own unique artistic voice.</p>
-            </div>
-            <!-- Star Rating -->
-            <div class="star-rating">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star-number">4.8 (43)</span>
-            </div>
-            <button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
-        </div>
+			<!-- person 4-->
+			<div
+				class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
+				<!-- Service Image -->
+				<img src="https://i.ytimg.com/vi/Fpnx9hsCSvE/maxresdefault.jpg" alt="Service"
+					class="w-full h-64 object-cover">
+				<!-- Service Info -->
+				<div class="p-4">
+					<h3 class="text-lg font-semibold mb-2">Emily Johnson</h3>
+					<p>Skill: Painting<br><br>
+						Description: Emily Johnson is a talented painter known for her vibrant and expressive artwork.
+						She can teach you the art of painting through personalized lessons that focus on color theory,
+						brushwork techniques, and composition. With her patient and encouraging teaching style, Emily
+						will help you unlock your creativity and develop your own unique artistic voice.</p>
+				</div>
+				<!-- Star Rating -->
+				<div class="star-rating">
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star-number">4.8 (43)</span>
+				</div>
+				<button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
+			</div>
 
-        <!-- person 5 -->
-        <div class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
-            <!-- Service Image -->
-            <img src="https://i.ytimg.com/vi/07xZomjFv7w/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB-0kElt6uPU2ddJTxg3EKsCNSayQ" alt="Service" class="w-full h-64 object-cover">
-            <!-- Service Info -->
-            <div class="p-4">
-                <h3 class="text-lg font-semibold mb-2">Marcus Bennett</h3>
-                <p>Skill: Guitar Playing <br><br>
-                    Description: Marcus Bennett is a skilled guitarist with years of experience playing various genres, from blues to rock to classical. He offers guitar lessons that cater to beginners and intermediate players, covering fundamentals like chord progressions, fingerpicking, and soloing techniques. Marcus's passion for music and relaxed teaching approach make learning the guitar an enjoyable and fulfilling experience.</p>
-            </div>
-            <!-- Star Rating -->
-            <div class="star-rating">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star-number">4.9 (35)</span>
-            </div>
-            <button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
-        </div>
+			<!-- person 5 -->
+			<div
+				class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
+				<!-- Service Image -->
+				<img src="https://i.ytimg.com/vi/07xZomjFv7w/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB-0kElt6uPU2ddJTxg3EKsCNSayQ"
+					alt="Service" class="w-full h-64 object-cover">
+				<!-- Service Info -->
+				<div class="p-4">
+					<h3 class="text-lg font-semibold mb-2">Marcus Bennett</h3>
+					<p>Skill: Guitar Playing <br><br>
+						Description: Marcus Bennett is a skilled guitarist with years of experience playing various
+						genres, from blues to rock to classical. He offers guitar lessons that cater to beginners and
+						intermediate players, covering fundamentals like chord progressions, fingerpicking, and soloing
+						techniques. Marcus's passion for music and relaxed teaching approach make learning the guitar an
+						enjoyable and fulfilling experience.</p>
+				</div>
+				<!-- Star Rating -->
+				<div class="star-rating">
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star-number">4.9 (35)</span>
+				</div>
+				<button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
+			</div>
 
-        <!-- person 6 -->
-        <div class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
-            <!-- Service Image -->
-            <img src="https://i.ytimg.com/vi/StzBr1kSPlQ/maxresdefault.jpg" alt="Service" class="w-full h-64 object-cover">
-            <!-- Service Info -->
-            <div class="p-4">
-                <h3 class="text-lg font-semibold mb-2">Sofia Rodriguez</h3>
-                <p>Skill: Culinary Arts<br><br>
-                    Description: Sofia Rodriguez is a culinary wizard in the kitchen, with expertise in preparing gourmet dishes from around the world. She can teach you the art of cooking through hands-on cooking classes, where you'll learn essential techniques, knife skills, and how to balance flavors. Sofia's love for food and her ability to simplify complex recipes will have you cooking like a pro in no time. </p>
-            </div>
-            <!-- Star Rating -->
-            <div class="star-rating">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star-number">4.6 (209)</span>
-            </div>
-            <button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
-        </div>
-    
-    </div>
-</div>
+			<!-- person 6 -->
+			<div
+				class="card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer">
+				<!-- Service Image -->
+				<img src="https://i.ytimg.com/vi/StzBr1kSPlQ/maxresdefault.jpg" alt="Service"
+					class="w-full h-64 object-cover">
+				<!-- Service Info -->
+				<div class="p-4">
+					<h3 class="text-lg font-semibold mb-2">Sofia Rodriguez</h3>
+					<p>Skill: Culinary Arts<br><br>
+						Description: Sofia Rodriguez is a culinary wizard in the kitchen, with expertise in preparing
+						gourmet dishes from around the world. She can teach you the art of cooking through hands-on
+						cooking classes, where you'll learn essential techniques, knife skills, and how to balance
+						flavors. Sofia's love for food and her ability to simplify complex recipes will have you cooking
+						like a pro in no time. </p>
+				</div>
+				<!-- Star Rating -->
+				<div class="star-rating">
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star">★</span>
+					<span class="star-number">4.6 (209)</span>
+				</div>
+				<button class="btn space-theme-accent-bg rounded px-4 py-2 w-full">View Service</button>
+			</div>
 
-<!-- Tailwind JS and custom scripts -->
-<script src="https://cdn.tailwindcss.com"></script>
+		</div>
+	</div>
+
+	<!-- Tailwind JS and custom scripts -->
+	<script src="https://cdn.tailwindcss.com"></script>
 </body>
+
 </html>
