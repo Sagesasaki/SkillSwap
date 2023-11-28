@@ -4,7 +4,7 @@ public class Barter {
 	private boolean is_complete;
 	private int service_id_1;
 	private int service_id_2;
-	Barter(){
+	public Barter(){
 		is_complete = false;
 		service_id_1 = 0;
 		service_id_2 = 0;

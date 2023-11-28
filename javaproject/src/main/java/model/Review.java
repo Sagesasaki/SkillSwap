@@ -5,7 +5,7 @@ public class Review {
 	private int reviewed_id;
 	private String review_text;
 	private int rating;
-	Review(){
+	public Review(){
 		reviewer_id = 0;
 		reviewed_id = 0;
 		review_text = null;

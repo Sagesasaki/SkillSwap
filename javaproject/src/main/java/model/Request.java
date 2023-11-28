@@ -4,7 +4,7 @@ public class Request {
 	int user_id;
 	int service_id;
 	String request_text;
-	Request(){
+	public Request(){
 		user_id = 0;
 		service_id = 0;
 		request_text = null;
