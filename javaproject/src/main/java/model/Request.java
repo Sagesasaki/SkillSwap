@@ -1,37 +1,53 @@
 package model;
 
 public class Request {
-	int user_id;
-	int service_id;
-	String request_text;
+    private int user_id;
+    private int offered_service_id;
+    private int requested_service_id;
+    private String request_text;
+    private String status;
 
-	public Request() {
-		user_id = 0;
-		service_id = 0;
-		request_text = null;
-	}
+    public Request() {
+    }
 
-	public int getUser_id() {
-		return user_id;
-	}
+    // Getters and Setters
+    public int getUser_id() {
+        return user_id;
+    }
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
-	public int getService_id() {
-		return service_id;
-	}
+    public int getOffered_service_id() {
+        return offered_service_id;
+    }
 
-	public void setService_id(int service_id) {
-		this.service_id = service_id;
-	}
+    public void setOffered_service_id(int offered_service_id) {
+        this.offered_service_id = offered_service_id;
+    }
 
-	public String getRequest_text() {
-		return request_text;
-	}
+    public int getRequested_service_id() {
+        return requested_service_id;
+    }
 
-	public void setRequest(String request_text) {
-		this.request_text = request_text;
-	}
+    public void setRequested_service_id(int requested_service_id) {
+        this.requested_service_id = requested_service_id;
+    }
+
+    public String getRequest_text() {
+        return request_text;
+    }
+
+    public void setRequest_text(String request_text) {
+        this.request_text = request_text;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

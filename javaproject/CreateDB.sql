@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS skillswap;
 CREATE DATABASE skillswap;
 USE skillswap;
+
 CREATE TABLE users (
   user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(128) NOT NULL UNIQUE,
@@ -31,11 +32,16 @@ CREATE TABLE reviews (
   FOREIGN KEY (reviewer_id) REFERENCES users (user_id),
   FOREIGN KEY (reviewed_id) REFERENCES users (user_id)
 );
-    
+
 CREATE TABLE requests (
   user_id INT NOT NULL,
-  service_id INT NOT NULL,
+  offered_service_id INT NOT NULL,
+  requested_service_id INT NOT NULL,
   request_text VARCHAR(512) NOT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'pending',
   FOREIGN KEY (user_id) REFERENCES users (user_id),
-  FOREIGN KEY (service_id) REFERENCES services (service_id)
+  FOREIGN KEY (offered_service_id) REFERENCES services (service_id),
+  FOREIGN KEY (requested_service_id) REFERENCES services (service_id)
 );
+
+ALTER TABLE requests MODIFY COLUMN status ENUM('pending', 'accepted', 'declined') NOT NULL;
