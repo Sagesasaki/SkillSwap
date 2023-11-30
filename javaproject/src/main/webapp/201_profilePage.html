@@ -8,20 +8,6 @@
 	<!-- Include Tailwind CSS from CDN -->
 	<link href="https://cdn.tailwindcss.com" rel="stylesheet">
 	<!-- Custom Styles -->
-	<script>
-		window.onload = function () {
-			fetch('checkLoginStatus')
-				.then(response => response.json())
-				.then(data => {
-					if (!data.isLoggedIn) {
-						window.location.href = '201_login.html?error=Please log in to continue';
-					}
-				})
-				.catch(error => {
-					console.error('Error checking login status:', error);
-				});
-		};
-	</script>
 	<style>
 		/* Add custom styles here */
 		.space-theme-bg {
@@ -84,7 +70,8 @@
 		input:focus,
 		button:focus {
 			outline: none;
-			ring: 2px;		}
+			ring: 2px solid ring-purple-500;
+		}
 	</style>
 </head>
 
@@ -117,7 +104,7 @@
 					<h2 class="text-xl font-semibold">Ronald Smith</h2>
 					<a href="201_explorePage.html" class="text-blue-600 mt-2">Explore Page</a>
 					<button class="text-blue-600 mt-2">Requests</button>
-					<a href="logoutUser" class="text-blue-600 mt-2">Sign Out</a>
+					<a href="index.html" class="text-blue-600 mt-2">Sign Out</a>
 
 				</div>
 			</div>

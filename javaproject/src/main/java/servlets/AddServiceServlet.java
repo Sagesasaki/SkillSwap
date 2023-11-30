@@ -12,7 +12,7 @@ import dao.ServiceDAO;
 import model.Service;
 
 @WebServlet("/addService")
-public class AddUserServiceServlet extends HttpServlet {
+public class AddServiceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	try {
