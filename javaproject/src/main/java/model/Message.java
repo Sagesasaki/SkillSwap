@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 public class Message {
     private boolean is_complete;
@@ -13,10 +13,10 @@ public class Message {
         service_id_2 = 0;
         user_id_1 = 0;
         user_id_2 = 0;
-        messages = new Array(MessageObject(0, ""));
+     //   messages = new Array(MessageObject(0, ""));
     }
 
-    private MessageObject[] messages = new Array(MessageObject(0, ""));
+  //  private MessageObject[] messages = new MessageObject[];
 
     public void setIs_complete(boolean is_complete) {
         this.is_complete = is_complete;
@@ -58,22 +58,23 @@ public class Message {
         this.user_id_2 = user_id;
     }
 
-    public MessageObject[] getMessages() {
-        return this.messages;
-    }
+//    public MessageObject[] getMessages() {
+//        return this.messages;
+//    }
+//
+//    public void addMessage(int user_id, String text) {
+//        MessageObject message = new MessageObject(user_id, text);
+//        this.messages.push(message);
+//    }
+//    
+    public class MessageObject {
+        private int user_id = 0;
+        private String text = "";
 
-    public void addMessage(int user_id, String text) {
-        MessageObject message = new MessageObject(user_id, text);
-        this.messages.push(message);
+        public MessageObject(int userId, String messageText) {
+            user_id = userId;
+            text = messageText;
+        }
     }
 }
 
-private class MessageObject {
-    private int user_id = 0;
-    private String text = "";
-
-    public MessageObject(int userId, String messageText) {
-        user_id = userId;
-        text = messageText;
-    }
-}
