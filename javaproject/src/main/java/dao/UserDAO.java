@@ -21,42 +21,46 @@ public class UserDAO {
 		this.connection = connection;
 	}
 	public int registerUser(User user) {
-		PreparedStatement ps = null;
-		int result = 0;
-		String statementString = "INSERT IGNORE INTO Users" +
-                " (username, password, name) VALUES " +
-                " ( ?, ?, ?)";
-        try {
-        	// Establishing connection
-        	connection = DriverManager
-            .getConnection("jdbc:mysql://localhost/skillswap?user=root&password=root");
-        	//Preparing a statement
-            PreparedStatement preparedStatement = connection.prepareStatement(statementString);
-            preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, user.getName());
-            System.out.println(preparedStatement);
-            result = preparedStatement.executeUpdate();
-            // No insertion happened because the username is already in the table
-            if(result < 1) {
-            	System.out.println("Username taken.");
-            }
-        } catch (SQLException e) {
-        	System.out.println ("SQLException: " + e.getMessage());
-        } finally {
-			try {
-				if (ps != null) {
-					ps.close();
-				}
-				if(connection != null) {
-					connection.close();
-				}
-			} catch (SQLException sqle) {
-				System.out.println("sqle: " + sqle.getMessage());
-			}
-		}
-        return result;
-    }
+	    PreparedStatement ps = null;
+	    int result = 0;
+	    String statementString = "INSERT IGNORE INTO Users (username, password, name) VALUES (?, ?, ?)";
+	    ResultSet generatedKeys = null;
+	    try {
+	        connection = DriverManager.getConnection("jdbc:mysql://localhost/skillswap?user=root&password=root");
+	        ps = connection.prepareStatement(statementString, PreparedStatement.RETURN_GENERATED_KEYS);
+	        ps.setString(1, user.getUsername());
+	        ps.setString(2, user.getPassword());
+	        ps.setString(3, user.getName());
+
+	        result = ps.executeUpdate();
+
+	        if (result > 0) {
+	            generatedKeys = ps.getGeneratedKeys();
+	            if (generatedKeys.next()) {
+	                user.setUser_id(generatedKeys.getInt(1));
+	                System.out.println(user.getUser_id());
+                }
+	        } else {
+	            System.out.println("Username taken.");
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("SQLException: " + e.getMessage());
+	    } finally {
+	        closeResources(generatedKeys, ps, connection);
+	    }
+	    return result;
+	}
+	private void closeResources(AutoCloseable... resources) {
+	    for (AutoCloseable resource : resources) {
+	        try {
+	            if (resource != null) {
+	                resource.close();
+	            }
+	        } catch (Exception e) {
+	            System.out.println("Error closing resource: " + e.getMessage());
+	        }
+	    }
+	}
 	public User loadUser(String username, String password) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -113,21 +117,21 @@ public class UserDAO {
 		user.setName(rs.getString("name"));
 		return user;
 	}
-	public static void main(String[] args) {
-		User user = new User();
-		user.setName("Bob Bobson");
-		user.setPassword("pass");
-		user.setUser_id(1);
-		user.setUsername("username");
-		//DBConnector.startConnection();
-		UserDAO uDao = new UserDAO();
-		uDao.registerUser(user);
-		User user2 = uDao.loadUser("username", "pass");
-		System.out.println(user2.getUser_id());
-		System.out.println(user2.getUsername());
-		System.out.println(user2.getPassword());
-		System.out.println(user2.getName());
-	}
+//	public static void main(String[] args) {
+//		User user = new User();
+//		user.setName("Bob Bobson");
+//		user.setPassword("pass");
+//		user.setUser_id(1);
+//		user.setUsername("username");
+//		//DBConnector.startConnection();
+//		UserDAO uDao = new UserDAO();
+//		uDao.registerUser(user);
+//		User user2 = uDao.loadUser("username", "pass");
+//		System.out.println(user2.getUser_id());
+//		System.out.println(user2.getUsername());
+//		System.out.println(user2.getPassword());
+//		System.out.println(user2.getName());
+//	}
 	
 }
 

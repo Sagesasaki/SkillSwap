@@ -8,22 +8,6 @@
 	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		window.onload = () => {
-			var urlParams = new URLSearchParams(window.location.search);
-			var errorMsg = urlParams.get('error');
-			console.log(errorMsg);
-			var message = $("#error-message");
-
-			if (errorMsg != null) {
-				message.text(errorMsg)
-			}
-			else {
-				message.text("");
-			}
-		}
-
-	</script>
 	<style>
 		/* Custom styles */
 		.error-message.text-red-500 {
@@ -96,7 +80,7 @@
 				<label class="block text-sm font-bold mb-2" for="name">Name</label>
 				<input name="name"
 					class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-					id="username" type="text" placeholder="Username">
+					id="name" type="text" placeholder="Username">
 			</div>
 			<div class="mb-1.5">
 				<label class="block text-sm font-bold mb-2" for="password">Password</label>
@@ -264,15 +248,56 @@
 			enableOrDisableSignupButton();
 		});
 
-		// Prevent form submission if passwords don't match
-		$("#signup-form").on("submit", function (event) {
-			var password = $("#password").val();
-			var confirmPassword = $("#confirm_password").val();
 
-			if (password !== confirmPassword) {
-				event.preventDefault(); // Prevent form submission
-				alert("Passwords do not match. Please make sure they match before signing up.");
-			}
+		$(document).ready(function () {
+			$("#signup-form").on("submit", function (event) {
+				event.preventDefault(); // Prevent the default form submission
+
+				var username = $("#username").val();
+				var password = $("#password").val();
+				var name = $("#name").val();
+
+				var confirmPassword = $("#confirm_password").val();
+
+				if (password !== confirmPassword) {
+					alert("Passwords do not match. Please make sure they match before signing up.");
+				}
+				else {
+					$.ajax({
+						url: 'registerUser',
+						type: 'POST',
+						data: {
+							username: username,
+							password: password,
+							name: name
+						},
+						success: function (response) {
+							if (response.userId) {
+								localStorage.setItem('userId', response.userId);
+								localStorage.setItem('name', response.name);
+								window.location.href = '201_explorePage.html';
+							} else {
+								$("#error-message").text(response.error || 'Registration failed');
+							}
+						},
+						error: function () {
+							$("#error-message").text('Server error occurred');
+						}
+					});
+				}
+				var urlParams = new URLSearchParams(window.location.search);
+				var errorMsg = urlParams.get('error');
+				console.log(errorMsg);
+				var message = $("#error-message");
+
+				if (errorMsg != null) {
+					message.text(errorMsg)
+				}
+				else {
+					message.text("");
+				}
+			})
+
 		});
 	</script>
 </body>

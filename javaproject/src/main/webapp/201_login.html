@@ -9,8 +9,31 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		window.onload = () => {
-			var urlParams = new URLSearchParams(window.location.search); 
+		$(document).ready(function () {
+			$('form').on('submit', function (event) {
+				event.preventDefault();
+				var username = $('#username').val();
+				var password = $('#password').val();
+
+				$.ajax({
+					url: 'loginUser',
+					type: 'POST',
+					data: {username: username, password: password},
+					success: function (response) {
+						if (response.userId) {
+							localStorage.setItem('userId', response.userId);
+							localStorage.setItem('name', response.name);
+							window.location.href = '201_explorePage.html';
+						} else {
+							$('#error-message').text(response.error || 'Login failed');
+						}
+					},
+					error: function () {
+						$('#error-message').text('Login failed');
+					}
+				});
+			});
+			var urlParams = new URLSearchParams(window.location.search);
 			var errorMsg = urlParams.get('error');
 			console.log(errorMsg);
 			var message = $("#error-message");
@@ -21,7 +44,10 @@
 			else {
 				message.text("");
 			}
-		}
+
+		});
+	</script>
+
 
 	</script>
 	<style>

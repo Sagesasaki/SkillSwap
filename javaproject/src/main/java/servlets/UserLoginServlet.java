@@ -19,15 +19,22 @@ public class UserLoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         UserDAO userDao = new UserDAO();
-
         User user = userDao.loadUser(username, password);
 
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect("201_explorePage.html"); // Redirect to the user home page
-        } else {
-            response.sendRedirect("201_login.html?error=Invalid credentials"); 
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            String jsonResponse = "{\"userId\": " + user.getUser_id() + ", \"name\": \"" + user.getName() + "\"}";
+            response.getWriter().write(jsonResponse);
+    	} else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"error\": \"Invalid credentials\"}");
         }
     }
 }
+
