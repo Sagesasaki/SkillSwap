@@ -21,6 +21,7 @@ public class GetUserServicesServlet extends HttpServlet {
             ServiceDAO serviceDAO = new ServiceDAO();
             List<Service> services = serviceDAO.loadServicesByUserId(userId);
 
+            
             String json = new Gson().toJson(services);
 
             response.setContentType("application/json");

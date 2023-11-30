@@ -1,5 +1,6 @@
 package servlets;
 
+import java.io.Console;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +31,8 @@ public class AddServiceServlet extends HttpServlet {
             
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"status\":\"success\"}");
+            String jsonResponse = "{\"status\": \"success\", \"serviceID\": \"" + service.getService_id() + "\"}";
+            response.getWriter().write(jsonResponse);  
         } catch (NumberFormatException e) {
             // Send error response for invalid user ID format
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

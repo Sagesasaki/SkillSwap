@@ -139,7 +139,29 @@
 						class="btn space-theme-accent-bg rounded px-4 py-2">Click For More Messages</button>
 
 				</div>
+				<div class="mt-6">
+					<h3 class="text-xl font-semibold mb-4 space-theme-accent">Add New Service</h3>
+					<form id="addServiceForm" class="flex flex-col space-y-4">
+						<div>
+							<label for="service-name" class="block text-sm font-bold mb-2">Service Name</label>
+							<input type="text" id="service-name" name="service-name"
+								class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								placeholder="Enter service name">
+						</div>
+						<div>
+							<label for="service-description" class="block text-sm font-bold mb-2">Description</label>
+							<textarea id="service-description" name="service-description"
+								class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								placeholder="Describe the service" rows="3"></textarea>
+						</div>
+						<div class="text-right">
+							<button type="submit" class="btn space-theme-accent-bg rounded px-4 py-2">Submit
+								Service</button>
+						</div>
+					</form>
+				</div>
 			</div>
+
 		</div>
 	</div>
 
@@ -157,17 +179,85 @@
 				.catch(error => {
 					console.error('Error checking login status:', error);
 				});
-				var profilename = $("#username");
-				profilename.text(localStorage.getItem('name'));
+			var profilename = $("#username");
+			profilename.text(localStorage.getItem('name'));
+			var userId = localStorage.getItem('userId'); // Or however you retrieve the user ID
+			if (userId) {
+				fetchUserServices(userId);
+			}
+
+
 		};
-		// JavaScript functions for adding and deleting services
-		function addService() {
-			// Your addService implementation
+
+		function fetchUserServices(userId) {
+			fetch(`listUserServices?user_id=${userId}`)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.json();
+				})
+				.then(services => {
+					populateServicesList(services);
+				})
+				.catch(error => {
+					console.error('Fetching services failed:', error);
+				});
 		}
 
-		function deleteService() {
-			// Your deleteService implementation
+		function populateServicesList(services) {
+			const servicesList = document.getElementById('servicesList');
+			servicesList.innerHTML = '';
+
+			services.forEach(service => {
+				const listItem = document.createElement('li');
+				listItem.textContent = service.name; 
+				servicesList.appendChild(listItem);
+			});
 		}
+
+		document.getElementById('addServiceForm').addEventListener('submit', function (event) {
+
+			var serviceName = document.getElementById('service-name').value;
+			var serviceDescription = document.getElementById('service-description').value;
+			var userId = localStorage.getItem('userId');
+
+			if (!userId) {
+				alert('User ID is not available. Please log in again.');
+				return;
+			}
+
+			var formData = 'name=' + encodeURIComponent(serviceName) +
+				'&description=' + encodeURIComponent(serviceDescription) +
+				'&userid=' + encodeURIComponent(userId);
+
+			fetch('http://localhost:8080/SkillSwap/addService', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: formData
+			})
+				.then(response => response.json())
+				.then(data => {
+					if (data.status === 'success') {
+						console.log('Service added successfully. Service ID:', data.serviceID);
+					} else {
+						console.error('Service addition failed:', data.error);
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);					// ...
+				});
+
+			document.getElementById('service-name').value = '';
+			document.getElementById('service-description').value = '';
+		});
+
+
+
+
+
 	</script>
 </body>
 
