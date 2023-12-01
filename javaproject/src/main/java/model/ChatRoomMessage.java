@@ -7,11 +7,13 @@ public class ChatRoomMessage {
     private int sender_id;
     private String message_text;
     private LocalDateTime timestamp;
+    private String sender;
 
     public ChatRoomMessage() {
         // Initialize with default values
         this.message_id = 0;
         this.sender_id = 0;
+        this.sender = "";
         this.message_text = "";
         this.timestamp = LocalDateTime.now(); // Initialize with the current date and time
     }
@@ -48,4 +50,12 @@ public class ChatRoomMessage {
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
+	public String getSender() {
+		return sender;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
 }

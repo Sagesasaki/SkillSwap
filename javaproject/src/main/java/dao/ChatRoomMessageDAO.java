@@ -47,7 +47,9 @@ public class ChatRoomMessageDAO {
 		List<ChatRoomMessage> messages = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String statementString = "SELECT * FROM chatroom_messages ORDER BY timestamp DESC"; 																							
+		String statementString = "SELECT chatroom_messages.*, users.name AS sender_name " + "FROM chatroom_messages "
+				+ "JOIN users ON chatroom_messages.sender_id = users.user_id "
+				+ "ORDER BY chatroom_messages.timestamp ASC";
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/skillswap?user=root&password=root");
 			ps = connection.prepareStatement(statementString);
@@ -71,6 +73,7 @@ public class ChatRoomMessageDAO {
 		message.setSenderId(rs.getInt("sender_id"));
 		message.setMessageText(rs.getString("message_text"));
 		message.setTimestamp(rs.getTimestamp("timestamp").toLocalDateTime()); // Convert Timestamp to LocalDateTime
+		message.setSender(rs.getString("sender_name")); // Set the sender's name
 		return message;
 	}
 
