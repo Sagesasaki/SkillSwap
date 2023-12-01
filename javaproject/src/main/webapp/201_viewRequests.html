@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Incoming Requests - SkillSwap</title>
+	<!-- Include Tailwind CSS from CDN -->
+	<link href="https://cdn.tailwindcss.com" rel="stylesheet">
+	<style>
+		.space-theme-bg {
+			background-color: #0a0b1a;
+			/* Deep Space Blue */
+		}
+
+		.space-theme-accent {
+			color: #7f00ff;
+			/* Neon Purple for that video game feel */
+		}
+
+		.space-theme-accent-bg {
+			background-color: #7f00ff;
+			/* Neon Purple background for buttons */
+		}
+
+		.space-theme-text {
+			color: #ccd6f6;
+			/* Soft light blue for text */
+		}
+
+		.btn:hover {
+			background-color: #8f29ff;
+			/* Slightly lighter purple on hover */
+			transform: scale(1.05);
+			/* Slightly larger on hover */
+		}
+
+		.btn:active {
+			background-color: #5701a3;
+			/* Darker purple when clicked */
+			transform: scale(0.95);
+			/* Slightly smaller when clicked */
+		}
+
+		.card:hover {
+			background-color: #2a2f45;
+			/* Slightly lighter background on hover */
+			transform: translateY(-5px);
+			/* Raise card */
+			transition: background-color 0.3s ease, transform 0.3s ease;
+		}
+
+		.profile-link:hover {
+			background-color: #7f00ff;
+			/* Slightly lighter background on hover */
+			transition: background-color 0.3s ease;
+		}
+
+		body {
+			animation: fadeIn 1s ease-in;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+	</style>
+</head>
+
+<body class="space-theme-bg text-white">
+	<header class="flex justify-between items-center p-4">
+		<a href="201_explorePage.html"
+			class="text-5xl space-theme-accent font-bold transition-transform hover:scale-110">SkillSwap</a>
+		<div class="flex items-center space-x-4">
+			<div class="relative">
+				<input type="text" placeholder="Search"
+					class="p-2 pl-8 pr-2 rounded-full bg-gray-700 text-white border-2 border-gray-600 focus:outline-none focus:border-purple-700">
+				<!-- Search Icon SVG -->
+			</div>
+			<a href="201_profilePage.html"
+				class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">
+				<img src="https://via.placeholder.com/150" alt="Profile" class="w-8 h-8 rounded-full">
+			</a>
+			<form action="logoutUser" method="get">
+				<button type="submit"
+					class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">Logout</button>
+			</form>
+		</div>
+	</header>
+
+	<div class="container mx-auto px-4 py-6">
+		<h2 class="text-4xl font-bold space-theme-accent mb-6">Incoming Requests</h2>
+		<div id="requestsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<!-- Incoming requests will be populated here -->
+		</div>
+	</div>
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		window.onload = function () {
+			fetch('checkLoginStatus')
+				.then(response => response.json())
+				.then(data => {
+					if (!data.isLoggedIn) {
+						window.location.href = '201_login.html?error=Please log in to continue';
+					}
+				})
+				.catch(error => {
+					console.error('Error checking login status:', error);
+				});
+			fetchIncomingRequests();
+		};
+
+		function fetchIncomingRequests() {
+			const userId = localStorage.getItem('userId');
+			fetch(`incomingRequests?user_id=${userId}`)
+				.then(response => response.json())
+				.then(requests => {
+					console.log(requests);
+					populateRequests(requests);
+				})
+				.catch(error => {
+					console.error('Error fetching incoming requests:', error);
+				});
+		}
+
+		function populateRequests(requests) {
+			const container = document.getElementById('requestsContainer');
+			requests.forEach(request => {
+				if (request.status == "pending") {
+					container.appendChild(createRequestCard(request));
+				}
+			});
+		}
+
+		function createRequestCard(request) {
+			console.log(request);
+			const card = document.createElement('div');
+			card.className = 'card bg-gray-800 rounded-lg p-4 space-theme-text mb-6';
+
+			// Request Info
+			const infoDiv = document.createElement('div');
+			const title = document.createElement('h3');
+			title.className = 'text-lg font-semibold mb-2';
+			title.textContent = `Request from User ID: ${request.user_id}`;
+
+			const description = document.createElement('p');
+			description.textContent = request.request_text;
+
+			// Accept Button
+			const acceptButton = document.createElement('button');
+			acceptButton.className = 'btn space-theme-accent-bg rounded px-4 py-2';
+			acceptButton.textContent = 'Accept';
+			acceptButton.dataset.requestId = request.request_id; // Attach request ID
+			acceptButton.onclick = function () {
+				handleRequestAction(request.request_id, 'accepted');
+			};
+
+			// Deny Button
+			const denyButton = document.createElement('button');
+			denyButton.className = 'btn space-theme-accent-bg rounded px-4 py-2 ml-2';
+			denyButton.textContent = 'Deny';
+			denyButton.dataset.requestId = request.request_id; // Attach request ID
+			denyButton.onclick = function () {
+				handleRequestAction(request.request_id, 'declined');
+			};
+
+			// Append elements
+			infoDiv.appendChild(title);
+			infoDiv.appendChild(description);
+			card.appendChild(infoDiv);
+			card.appendChild(acceptButton);
+			card.appendChild(denyButton);
+
+			return card;
+		}
+
+		function handleRequestAction(requestId, action) {
+			console.log(requestId, action);
+
+			const data = `request_id=${encodeURIComponent(requestId)}&status=${encodeURIComponent(action)}`;
+
+			fetch('updateRequestStatus', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded' // Set the content type header
+				},
+				body: data // Send URL-encoded data
+			})
+				.then(response => response.json())
+				.then(data => {
+					// Handle response from servlet
+					console.log('Response from servlet:', data);
+					if (data.success) {
+						// Update UI accordingly, e.g., remove the request card or update its status
+						const card = document.querySelector(`[data-request-id="${requestId}"]`).parentNode;
+						card.remove(); // This removes the request card from the UI
+					} else {
+						console.error('Error updating request status');
+					}
+				})
+				.catch(error => {
+					console.error('Error submitting request:', error);
+				});
+		}
+
+
+
+	</script>
+</body>
+
+</html>

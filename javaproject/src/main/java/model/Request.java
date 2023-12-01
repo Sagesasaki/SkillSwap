@@ -6,6 +6,7 @@ public class Request {
     private int requested_service_id;
     private String request_text;
     private String status;
+    private int request_id;
 
     public Request() {
     }
@@ -50,4 +51,12 @@ public class Request {
     public void setStatus(String status) {
         this.status = status;
     }
+
+	public int getRequest_id() {
+		return request_id;
+	}
+
+	public void setRequest_id(int request_id) {
+		this.request_id = request_id;
+	}
 }

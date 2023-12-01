@@ -114,29 +114,40 @@ public class ServiceDAO {
 
 		return services;
 	}
-	
+
 	public List<Service> loadAllServices() {
-        List<Service> services = new ArrayList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        String statementString = "SELECT * FROM Services";
+		List<Service> services = new ArrayList<>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String statementString = "SELECT Services.*, Users.name AS user_name FROM Services JOIN Users ON Services.user_id = Users.user_id";
 
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/skillswap?user=root&password=root");
-            ps = connection.prepareStatement(statementString);
-            rs = ps.executeQuery();
+		try {
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/skillswap?user=root&password=root");
+			ps = connection.prepareStatement(statementString);
+			rs = ps.executeQuery();
 
-            while (rs.next()) {
-                services.add(parseResultSet(rs));
-            }
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-        } finally {
-            closeResources(rs, ps, connection);
-        }
+			while (rs.next()) {
+				services.add(parseResultSetWithUserName(rs));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQLException: " + e.getMessage());
+		} finally {
+			closeResources(rs, ps, connection);
+		}
 
-        return services;
-    }
+		return services;
+	}
+
+	private Service parseResultSetWithUserName(ResultSet rs) throws SQLException {
+		Service service = new Service();
+		service.setService_id(rs.getInt("service_id"));
+		service.setName(rs.getString("name"));
+		service.setDescription(rs.getString("description"));
+		service.setUser_id(rs.getInt("user_id"));
+		// Set the user's name to the service object
+		service.setUser(rs.getString("user_name")); // Assuming Service class has a setUserName method
+		return service;
+	}
 
 	private Service parseResultSet(ResultSet rs) throws SQLException {
 		Service service = new Service();

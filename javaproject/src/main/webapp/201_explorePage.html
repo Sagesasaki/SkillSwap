@@ -39,6 +39,7 @@
 		};
 
 		function createServiceCard(service) {
+			console.log(service);
 			const card = document.createElement('div');
 			card.className = 'card bg-gray-800 rounded-lg overflow-hidden space-theme-text mb-6 hover:shadow-lg cursor-pointer';
 
@@ -46,36 +47,43 @@
 			const infoDiv = document.createElement('div');
 			infoDiv.className = 'p-4';
 
+			// Service Title
 			const title = document.createElement('h3');
 			title.className = 'text-lg font-semibold mb-2';
 			title.textContent = service.name;
 
+			// Provider's Name
+			const provider = document.createElement('p');
+			provider.textContent = `Provided by: ${service.user}`;
+
+			// Service Description
 			const description = document.createElement('p');
 			description.textContent = service.description;
 
-			// Append title and description to infoDiv
+			// Append title, provider, and description to infoDiv
 			infoDiv.appendChild(title);
+			infoDiv.appendChild(provider);
 			infoDiv.appendChild(description);
 
 			// Star Rating - Placeholder content
 			const starRatingDiv = document.createElement('div');
 			starRatingDiv.className = 'star-rating p-4';
 			starRatingDiv.innerHTML = `<!-- Replace with actual star rating logic -->
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star-number">4.8 (43)</span>`;
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star-number">4.8 (43)</span>`;
 
+			// View Service Button
 			const viewButton = document.createElement('button');
 			viewButton.className = 'btn space-theme-accent-bg rounded px-4 py-2 w-full';
 			viewButton.textContent = 'View Service';
-
-			// Event listener for button
 			viewButton.addEventListener('click', function () {
-				window.location.href = `201_requestPage.html?service_id=${service.service_id}`; // Redirect to request page with service ID
+				window.location.href = `201_requestPage.html?service_id=${service.service_id}`;
 			});
+
 			// Append elements to card
 			card.appendChild(infoDiv);
 			card.appendChild(starRatingDiv);

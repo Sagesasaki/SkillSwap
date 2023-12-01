@@ -34,6 +34,7 @@ CREATE TABLE reviews (
 );
 
 CREATE TABLE requests (
+  request_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
   offered_service_id INT NOT NULL,
   requested_service_id INT NOT NULL,

@@ -87,7 +87,7 @@
 			<a href="201_explorePage.html"
 				class="text-5xl space-theme-accent font-bold transition-transform hover:scale-110">SkillSwap</a>
 			<div class="w-full sm:w-auto fade-in">
-			<!--	<form class="relative mb-6">
+				<!--	<form class="relative mb-6">
 					<input type="search" name="search" placeholder="Search for services..."
 						class="pl-10 pr-4 py-2 rounded-full w-full bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-600 transition ease-in-out duration-300">
 					<button type="submit"
@@ -111,7 +111,9 @@
 						class="h-20 w-20 rounded-full mb-4 border border-gray-700">
 					<h2 id="username" class="text-xl font-semibold"></h2>
 					<a href="201_explorePage.html" class="text-blue-600 mt-2">Explore Page</a>
-					<button class="text-blue-600 mt-2">Requests</button>
+					<button class="text-blue-600 mt-2" onclick="location.href='201_viewRequests.html'">Requests</button>
+					<button class="text-blue-600 mt-2" onclick="location.href='201_viewBarters.html'">Barters</button>
+
 					<a href="index.html" class="text-blue-600 mt-2">Sign Out</a>
 
 				</div>
@@ -181,7 +183,7 @@
 				});
 			var profilename = $("#username");
 			profilename.text(localStorage.getItem('name'));
-			var userId = localStorage.getItem('userId'); 
+			var userId = localStorage.getItem('userId');
 			if (userId) {
 				fetchUserServices(userId);
 			}
