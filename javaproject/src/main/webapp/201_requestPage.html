@@ -82,7 +82,7 @@
 	<header class="flex justify-between items-center p-4">
 		<a href="201_explorePage.html"
 			class="text-5xl space-theme-accent font-bold transition-transform hover:scale-110">SkillSwap</a>
-		<div class="flex items-center space-x-4"> 
+		<div class="flex items-center space-x-4">
 			<div class="relative">
 				<input type="text" placeholder="Search"
 					class="p-2 pl-8 pr-2 rounded-full bg-gray-700 text-white border-2 border-gray-600 focus:outline-none focus:border-purple-700">
@@ -198,7 +198,12 @@
 				if (excludeUserId === null || service.user_id !== excludeUserId) {
 					const option = document.createElement('option');
 					option.value = service.service_id;
-					option.textContent = service.name + " - " + service.user;
+					if (dropdownId == 'user-service') {
+						option.textContent = service.name;
+
+					} else {
+						option.textContent = service.name + " - " + service.user;
+					}
 					if (service.service_id == selectedServiceId) {
 						option.selected = true;
 					}
@@ -216,7 +221,6 @@
 			const requestText = document.getElementById('request-text').value;
 			console.log(requestText);
 
-			// URL encoding the data
 			const encodedData = `user_id=${encodeURIComponent(userId)}&offered_service_id=${encodeURIComponent(offeredServiceId)}&requested_service_id=${encodeURIComponent(requestedServiceId)}&request_text=${encodeURIComponent(requestText)}`;
 
 			fetch('http://localhost:8080/SkillSwap/addRequest', {
@@ -229,6 +233,7 @@
 				.then(response => response.json())
 				.then(data => {
 					console.log('Request submitted successfully:', data);
+					window.location.href = '201_explorePage.html';
 				})
 				.catch(error => {
 					console.error('Error submitting request:', error);
