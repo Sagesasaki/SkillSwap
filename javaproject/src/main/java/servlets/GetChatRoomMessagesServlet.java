@@ -4,7 +4,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 import com.google.gson.*;
@@ -17,6 +16,10 @@ import java.time.format.DateTimeFormatter;
 
 @WebServlet("/getChatRoomMessages")
 public class GetChatRoomMessagesServlet extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ChatRoomMessageDAO messagesDao = new ChatRoomMessageDAO();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +33,6 @@ public class GetChatRoomMessagesServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(messagesJson);
-		System.out.println(messagesJson);
 	}
 
 	public class LocalDateTimeAdapter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {

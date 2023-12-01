@@ -5,12 +5,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Chatroom - SkillSwap</title>
-	<!-- Include Tailwind CSS from CDN -->
 	<link href="https://cdn.tailwindcss.com" rel="stylesheet">
 	<style>
 		.space-theme-bg {
 			background-color: #0a0b1a;
-			/* Deep Space Blue */
 		}
 
 		.message-sent {
@@ -27,51 +25,37 @@
 
 		.space-theme-accent {
 			color: #7f00ff;
-			/* Neon Purple for that video game feel */
 		}
 
 		.space-theme-accent-bg {
 			background-color: #7f00ff;
-			/* Neon Purple background for buttons */
 		}
 
 		.space-theme-text {
 			color: #ccd6f6;
-			/* Soft light blue for text */
 		}
 
-		/* Hover effect for buttons */
 		.btn:hover {
 			background-color: #8f29ff;
-			/* Slightly lighter purple on hover */
 			transform: scale(1.05);
-			/* Slightly larger on hover */
 		}
 
 		.btn:active {
 			background-color: #5701a3;
-			/* Darker purple when clicked */
 			transform: scale(0.95);
-			/* Slightly smaller when clicked */
 		}
 
-		/* Card hover effect */
 		.card:hover {
 			background-color: #2a2f45;
-			/* Slightly lighter background on hover */
 			transform: translateY(-5px);
-			/* Raise card */
 			transition: background-color 0.3s ease, transform 0.3s ease;
 		}
 
-		/* Profile icon link */
 		.profile-link:hover {
 			background-color: #7f00ff;
-			/* Slightly lighter background on hover */
 			transition: background-color 0.3s ease;
 		}
 
-		/* Fade-in effect on page load */
 		body {
 			animation: fadeIn 1s ease-in;
 		}
@@ -92,21 +76,17 @@
 			margin: 0;
 			font-family: 'Avenir', Helvetica, Arial, sans-serif;
 			color: white;
-			/* Set text color to white */
 		}
 
 		body {
 			background-color: #111827;
-			/* Dark background for the whole page */
 		}
 
-		/* Chat layout styling */
 		.chat-container {
 			display: flex;
 			height: 100%;
 		}
 
-		/* Chat list */
 		.chat-list {
 			width: 20%;
 			background: #1F2937;
@@ -114,21 +94,18 @@
 			overflow-y: auto;
 		}
 
-		/* Chat items */
 		.chat-item {
 			color: #9CA3AF;
 			padding: 0.75rem 1rem;
 			cursor: pointer;
 			border-radius: 0.5rem;
 			list-style-type: none;
-			/* Remove bullet points */
 		}
 
 		.chat-item:hover {
 			background: #374151;
 		}
 
-		/* Message area */
 		.message-area {
 			flex-grow: 1;
 			background: #111827;
@@ -142,7 +119,6 @@
 			padding: 1rem;
 		}
 
-		/* Messages */
 		.message {
 			margin: 0.5rem 0;
 			padding: 0.75rem 1rem;
@@ -153,22 +129,17 @@
 
 		.message-sent {
 			background: #4F46E5;
-			/* Sender message color */
 			margin-left: auto;
 			color: white;
-			/* Ensure sent message text is also white for consistency */
 		}
 
 		.message-received {
 			background: #374151;
-			/* Receiver message color */
 			margin-right: auto;
 			color: white;
-			/* Change text color to white */
 		}
 
 
-		/* Input area */
 		.input-area {
 			padding: 1rem;
 			background: #1F2937;
@@ -228,37 +199,74 @@
 	</div>
 
 	<script>
-		let currentUser = parseInt(localStorage.getItem('userId')); // You may want to dynamically set this based on the logged-in user.
+		let currentUser = parseInt(localStorage.getItem('userId'));
 
 		function displayMessage(message, isReceived) {
 			const messageArea = document.getElementById('messageArea');
 			let messageDiv = document.createElement('div');
 			let messageContent = document.createElement('div');
+			let messageTimestamp = document.createElement('div');
+
+			// Format the timestamp
+			let timestamp = new Date(message.timestamp).toLocaleTimeString(); // Converts the ISO string to a readable time.
+
+			messageTimestamp.textContent = timestamp;
+			messageTimestamp.className = 'text-gray-500 text-sm'; // Tailwind CSS classes for styling.
 
 			if (isReceived) {
 				messageDiv.classList.add('message', 'message-received');
-				messageContent.textContent = message.sender+": "+message.message_text;
+				messageContent.textContent = `${message.sender}: ${message.message_text}`;
 			} else {
 				messageDiv.classList.add('message', 'message-sent');
 				messageContent.textContent = message.message_text;
-
 			}
 
 			messageDiv.appendChild(messageContent);
+			messageDiv.appendChild(messageTimestamp); // Append the timestamp div to the message div.
 			messageArea.appendChild(messageDiv);
-			messageArea.scrollTop = messageArea.scrollHeight; // Auto-scroll to the latest message
+			messageArea.scrollTop = messageArea.scrollHeight; // Auto-scroll to the latest message.
 		}
 
-		// Function to send a new message
+
 		function sendMessage() {
 			const input = document.getElementById('messageInput');
 			const text = input.value.trim();
 			if (text) {
-				displayMessage(text, false);
-				input.value = ''; // Clear the input after sending
-				// Add logic to send this message to the server
+				const senderId = localStorage.getItem('userId');
+				const senderName = localStorage.getItem('name');
+
+				const message = {
+					sender_id: senderId,
+					message_text: text,
+					sender: senderName,
+					timestamp: new Date().toISOString()
+				};
+				
+				socket.send(JSON.stringify(message));
+
+				fetch('addChatRoomMessage', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded',
+					},
+					body: `senderId=${encodeURIComponent(senderId)}&messageText=${encodeURIComponent(text)}`
+				})
+					.then(response => response.json())
+					.then(data => {
+						if (data.success) {
+							input.value = '';
+							message.message_id = data.messageId;
+							displayMessage(message, false);
+						} else {
+							console.error('Failed to send the message:', data.error);
+						}
+					})
+					.catch(error => {
+						console.error('Error sending the message:', error);
+					});
 			}
 		}
+
 
 		window.onload = () => {
 			fetch('checkLoginStatus')
@@ -279,7 +287,6 @@
 				.then(response => response.json())
 				.then(messages => {
 					messages.forEach(message => {
-						console.log(message);
 						displayMessage(message, message.sender_id !== parseInt(localStorage.getItem('userId')));
 					});
 				})
@@ -287,6 +294,33 @@
 					console.error('Error fetching messages:', error);
 				});
 		};
+
+		let socket = new WebSocket("ws://localhost:8080/SkillSwap/chat");
+
+		socket.onopen = function (e) {
+			console.log("Connection established");
+		};
+
+		socket.onmessage = function (event) {
+			let message = JSON.parse(event.data);
+			console.log(message);
+			displayMessage(message, true); 
+		};
+
+		socket.onclose = function (event) {
+			if (event.wasClean) {
+				console.log("Connection closed cleanly");
+			} else {
+				console.error("Connection closed with error");
+			}
+		};
+
+		socket.onerror = function (error) {
+			console.error(`WebSocket error: ${error.message}`);
+		};
+
+		
+
 	</script>
 	<script src="https://cdn.tailwindcss.com"></script>
 </body>
