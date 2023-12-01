@@ -114,6 +114,29 @@ public class ServiceDAO {
 
 		return services;
 	}
+	
+	public List<Service> loadAllServices() {
+        List<Service> services = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String statementString = "SELECT * FROM Services";
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/skillswap?user=root&password=root");
+            ps = connection.prepareStatement(statementString);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                services.add(parseResultSet(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        } finally {
+            closeResources(rs, ps, connection);
+        }
+
+        return services;
+    }
 
 	private Service parseResultSet(ResultSet rs) throws SQLException {
 		Service service = new Service();

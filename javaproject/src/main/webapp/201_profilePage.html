@@ -82,18 +82,24 @@
 	<!-- Main container for the profile page -->
 	<div class="container mx-auto px-4 pt-6">
 		<!-- Header with the logo and search bar -->
+
 		<header class="flex flex-col sm:flex-row justify-between items-center mb-4">
-			<h1 class="text-3xl font-bold space-theme-accent mb-4 sm:mb-0 fade-in">Profile Page</h1>
+			<a href="201_explorePage.html"
+				class="text-5xl space-theme-accent font-bold transition-transform hover:scale-110">SkillSwap</a>
 			<div class="w-full sm:w-auto fade-in">
-				<form class="relative mb-6">
+			<!--	<form class="relative mb-6">
 					<input type="search" name="search" placeholder="Search for services..."
 						class="pl-10 pr-4 py-2 rounded-full w-full bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-600 transition ease-in-out duration-300">
 					<button type="submit"
 						class="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-300 transition ease-in-out duration-300">
-						<!-- SVG for search icon -->
 					</button>
-				</form>
+				</form> -->
 			</div>
+			<h1 class="text-3xl font-bold space-theme-accent mb-4 sm:mb-0 fade-in">Profile Page</h1>
+			<form action="logoutUser" method="get">
+				<button type="submit"
+					class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">Logout</button>
+			</form>
 		</header>
 
 		<!-- Grid layout for sidebar and main content -->
@@ -117,12 +123,6 @@
 				<div class="mb-6">
 					<div class="flex justify-between mb-4">
 						<h3 class="text-xl font-semibold space-theme-accent">My Services</h3>
-						<div>
-							<button onclick="addService()" class="btn space-theme-accent-bg rounded px-2 py-1 mr-2">Add
-								Service</button>
-							<button onclick="deleteService()" class="btn space-theme-accent-bg rounded px-2 py-1">Delete
-								Service</button>
-						</div>
 					</div>
 					<ul id="servicesList">
 						<li>Web Development</li>
@@ -181,7 +181,7 @@
 				});
 			var profilename = $("#username");
 			profilename.text(localStorage.getItem('name'));
-			var userId = localStorage.getItem('userId'); // Or however you retrieve the user ID
+			var userId = localStorage.getItem('userId'); 
 			if (userId) {
 				fetchUserServices(userId);
 			}
@@ -211,7 +211,7 @@
 
 			services.forEach(service => {
 				const listItem = document.createElement('li');
-				listItem.textContent = service.name; 
+				listItem.textContent = service.name;
 				servicesList.appendChild(listItem);
 			});
 		}

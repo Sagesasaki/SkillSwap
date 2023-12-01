@@ -6,6 +6,13 @@ import java.util.List;
 import model.Request;
 
 public class RequestDAO {
+	static {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	Connection connection;
     public RequestDAO() {
         connection = null;
