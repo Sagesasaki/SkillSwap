@@ -45,4 +45,12 @@ CREATE TABLE requests (
   FOREIGN KEY (requested_service_id) REFERENCES services (service_id)
 );
 
+CREATE TABLE chatroom_messages (
+  message_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  sender_id INT NOT NULL,
+  message_text VARCHAR(512) NOT NULL,
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (sender_id) REFERENCES users (user_id)
+);
+
 ALTER TABLE requests MODIFY COLUMN status ENUM('pending', 'accepted', 'declined') NOT NULL;

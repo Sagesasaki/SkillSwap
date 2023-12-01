@@ -9,9 +9,75 @@
 	<link href="https://cdn.tailwindcss.com" rel="stylesheet">
 	<style>
 		/* Page and container setup */
+		.space-theme-bg {
+			background-color: #0a0b1a;
+			/* Deep Space Blue */
+		}
+
+		.space-theme-accent {
+			color: #7f00ff;
+			/* Neon Purple for that video game feel */
+		}
+
+		.space-theme-accent-bg {
+			background-color: #7f00ff;
+			/* Neon Purple background for buttons */
+		}
+
+		.space-theme-text {
+			color: #ccd6f6;
+			/* Soft light blue for text */
+		}
+
+		/* Hover effect for buttons */
+		.btn:hover {
+			background-color: #8f29ff;
+			/* Slightly lighter purple on hover */
+			transform: scale(1.05);
+			/* Slightly larger on hover */
+		}
+
+		.btn:active {
+			background-color: #5701a3;
+			/* Darker purple when clicked */
+			transform: scale(0.95);
+			/* Slightly smaller when clicked */
+		}
+
+		/* Card hover effect */
+		.card:hover {
+			background-color: #2a2f45;
+			/* Slightly lighter background on hover */
+			transform: translateY(-5px);
+			/* Raise card */
+			transition: background-color 0.3s ease, transform 0.3s ease;
+		}
+
+		/* Profile icon link */
+		.profile-link:hover {
+			background-color: #7f00ff;
+			/* Slightly lighter background on hover */
+			transition: background-color 0.3s ease;
+		}
+
+		/* Fade-in effect on page load */
+		body {
+			animation: fadeIn 1s ease-in;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
 		html,
 		body {
-			height: 100%;
+			height:90%;
 			margin: 0;
 			font-family: 'Avenir', Helvetica, Arial, sans-serif;
 			color: white;
@@ -125,7 +191,23 @@
 
 <body>
 
+	<header id="mainHeader" class="flex justify-between items-center p-4">
+		<a href="201_explorePage.html"
+			class="text-5xl space-theme-accent font-bold transition-transform hover:scale-110">SkillSwap</a>
+		<div class="flex items-center space-x-4"> <!-- Added flex container with spacing -->
+
+			<a href="201_profilePage.html"
+				class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">
+				<img src="https://via.placeholder.com/150" alt="Profile" class="w-8 h-8 rounded-full">
+			</a>
+			<form action="logoutUser" method="get">
+				<button type="submit"
+					class="profile-link p-2 rounded-full hover:bg-purple-700 transition duration-300">Logout</button>
+			</form>
+		</div>
+	</header>
 	<div class="chat-container">
+
 		<!-- Chat list -->
 		<div class="chat-list">
 			<ul id="chatList">
@@ -221,9 +303,16 @@
 				.catch(error => {
 					console.error('Error checking login status:', error);
 				});
-				initChatList();
+			const header = document.getElementById('mainHeader');
+			const chatContainer = document.querySelector('.chat-container');
+			const headerHeight = header.clientHeight;
+			chatContainer.style.height = `calc(100vh - ${headerHeight}px)`;
+
+			initChatList();
 		};
 	</script>
+	<script src="https://cdn.tailwindcss.com"></script>
+
 
 </body>
 

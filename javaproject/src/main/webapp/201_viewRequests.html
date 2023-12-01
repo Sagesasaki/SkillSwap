@@ -132,6 +132,7 @@
 		function populateRequests(requests) {
 			const container = document.getElementById('requestsContainer');
 			requests.forEach(request => {
+				console.log(request);
 				if (request.status == "pending") {
 					container.appendChild(createRequestCard(request));
 				}
@@ -139,7 +140,6 @@
 		}
 
 		function createRequestCard(request) {
-			console.log(request);
 			const card = document.createElement('div');
 			card.className = 'card bg-gray-800 rounded-lg p-4 space-theme-text mb-6';
 
@@ -147,7 +147,7 @@
 			const infoDiv = document.createElement('div');
 			const title = document.createElement('h3');
 			title.className = 'text-lg font-semibold mb-2';
-			title.textContent = `Request from User ID: ${request.user_id}`;
+			title.textContent = `Request from User: ${request.requester}`;
 
 			const description = document.createElement('p');
 			description.textContent = request.request_text;

@@ -117,13 +117,15 @@ public class RequestDAO {
 		ResultSet rs = null;
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/skillswap?user=root&password=root");
-			String sql = "SELECT r.* FROM requests r JOIN services s ON r.requested_service_id = s.service_id WHERE s.user_id = ?";
+			String sql = "SELECT r.*, u.name as requester_name FROM requests r "
+					+ "JOIN services s ON r.requested_service_id = s.service_id "
+					+ "JOIN users u ON r.user_id = u.user_id " + "WHERE s.user_id = ?";
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, userId);
 
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				requests.add(parseResultSet(rs));
+				requests.add(parseResultSetWithRequester(rs));
 			}
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
@@ -133,6 +135,18 @@ public class RequestDAO {
 			closeResources(connection);
 		}
 		return requests;
+	}
+
+	private Request parseResultSetWithRequester(ResultSet rs) throws SQLException {
+		Request request = new Request();
+		request.setUser_id(rs.getInt("user_id"));
+		request.setRequest_id(rs.getInt("request_id"));
+		request.setOffered_service_id(rs.getInt("offered_service_id"));
+		request.setRequested_service_id(rs.getInt("requested_service_id"));
+		request.setRequest_text(rs.getString("request_text"));
+		request.setStatus(rs.getString("status"));
+		request.setRequester(rs.getString("requester_name"));
+		return request;
 	}
 
 	public boolean updateRequestStatus(int requestId, String status) {

@@ -7,6 +7,7 @@ public class Request {
     private String request_text;
     private String status;
     private int request_id;
+    private String requester;
 
     public Request() {
     }
@@ -58,5 +59,13 @@ public class Request {
 
 	public void setRequest_id(int request_id) {
 		this.request_id = request_id;
+	}
+
+	public String getRequester() {
+		return requester;
+	}
+
+	public void setRequester(String requester) {
+		this.requester = requester;
 	}
 }

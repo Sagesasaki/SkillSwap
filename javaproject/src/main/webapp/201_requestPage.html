@@ -194,10 +194,11 @@
 		function populateDropdown(services, dropdownId, selectedServiceId = null, excludeUserId = null) {
 			const dropdown = document.getElementById(dropdownId);
 			services.forEach(service => {
+				console.log(service);
 				if (excludeUserId === null || service.user_id !== excludeUserId) {
 					const option = document.createElement('option');
 					option.value = service.service_id;
-					option.textContent = service.name;
+					option.textContent = service.name + " - " + service.user;
 					if (service.service_id == selectedServiceId) {
 						option.selected = true;
 					}
