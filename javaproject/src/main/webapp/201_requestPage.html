@@ -82,7 +82,7 @@
 	<header class="flex justify-between items-center p-4">
 		<a href="201_explorePage.html"
 			class="text-5xl space-theme-accent font-bold transition-transform hover:scale-110">SkillSwap</a>
-		<div class="flex items-center space-x-4"> <!-- Added flex container with spacing -->
+		<div class="flex items-center space-x-4"> 
 			<div class="relative">
 				<input type="text" placeholder="Search"
 					class="p-2 pl-8 pr-2 rounded-full bg-gray-700 text-white border-2 border-gray-600 focus:outline-none focus:border-purple-700">
@@ -104,36 +104,28 @@
 		</div>
 	</header>
 
-	<!-- Main container -->
 	<div class="container mx-auto px-4 pt-6">
-		<!-- Page header -->
 		<header class="mb-4">
 			<h1 class="text-3xl font-bold space-theme-accent mb-4">Make a Service Request</h1>
 		</header>
 
-		<!-- Request Form -->
 		<div class="bg-gray-800 rounded-lg p-4">
 			<form id="requestServiceForm" class="space-y-4">
 
-				<!-- Dropdown for User's Services -->
 				<div>
 					<label for="user-service" class="block text-sm font-bold mb-2">Your Service:</label>
 					<select id="user-service" name="user_service_id"
 						class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-						<!-- User services options will be populated here -->
 					</select>
 				</div>
 
-				<!-- Dropdown for All Services -->
 				<div>
 					<label for="all-services" class="block text-sm font-bold mb-2">Request a Service:</label>
 					<select id="all-services" name="requested_service_id"
 						class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-						<!-- All services options will be populated here -->
 					</select>
 				</div>
 
-				<!-- Text area for request details -->
 				<div>
 					<label for="request-text" class="block text-sm font-bold mb-2">Request Details:</label>
 					<textarea id="request-text" name="request_text"
@@ -141,7 +133,6 @@
 						placeholder="Enter details of your request" rows="4"></textarea>
 				</div>
 
-				<!-- Submit Button -->
 				<div class="text-right">
 					<button type="submit" class="btn space-theme-accent-bg rounded px-4 py-2">Submit Request</button>
 				</div>
@@ -149,10 +140,8 @@
 		</div>
 	</div>
 
-	<!-- Tailwind JS -->
 	<script src="https://cdn.tailwindcss.com"></script>
 
-	<!-- Custom Scripts -->
 	<script>
 		window.onload = function () {
 			checkLoginStatus();
